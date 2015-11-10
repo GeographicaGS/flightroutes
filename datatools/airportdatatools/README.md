@@ -3,9 +3,6 @@ Computing Flight Routes Geometries and building World Airports layer.
 
 CRS for output shapefiles: EPSG:4326
 
-TODO:
-- Destiny flight
-- improve data cleaning proccess...
 
 ## Requeriments
 - Numpy.
@@ -49,7 +46,16 @@ $ python buildflightslayer.py
 
 $ sh merge_shp.sh
 ```
-Default folder for merge shap file: /tmp/flightdata/merged/merged.shp
+Default folder for merge shp file: /tmp/flightdata/merged/merged.shp
+
+Proccessing data for PostGIS:
+```
+select flight_routes_create_frame();
+
+select flight_routes_createpoints(0.4);
+
+$ pgsql2shp -h db -u postgres -P postgres -f flight_routes test "select * from flight_routes where orig in ('ATL','PEK','LHR','HND','LAX','DXB','ORD','CDG','DFW','HKG','FRA','CGK','IST','AMS','CAN','SIN','JFK','DEN','PVG','KUL','SFO','BKK','ICN','CLT','LAS','PHX','MAD','IAH','MIA','GRU','DEL','MUC','SYD','YYZ','FCO','LGW','SHA','CTU','BCN','SEA','SZX','TPE','MCO','EWR','NRT','MSP','BOM','MEX','MNL','DME')"
+```
 
 ## Data sources
 Raw data used to compute flight route geometries:
@@ -60,25 +66,18 @@ http://ourairports.com/data/
 #### Routes
 http://openflights.org/data.html
 
+### Airport total passengers
+http://www.aci.aero/
+http://en.wikipedia.org/wiki/List_of_the_world%27s_busiest_airports_by_passenger_traffic#2014_statistics
+
 
 ## About author
-Developed by Cayetano Benavent.
-GIS Analyst at Geographica.
+Developed by Alberto Asuero and Cayetano Benavent.
 
-http://www.geographica.gs
+Geographica - http://www.geographica.gs
 
 ## License
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
-
-
-##
-```
-select flight_routes_create_frame();
-select flight_routes_createpoints(0.4);
-pgsql2shp -h db -u postgres -P postgres -f flight_routes test "select * from flight_routes where orig in ('ATL','PEK','LHR','HND','LAX','DXB','ORD','CDG','DFW','HKG','FRA','CGK','IST','AMS','CAN','SIN','JFK','DEN','PVG','KUL','SFO','BKK','ICN','CLT','LAS','PHX','MAD','IAH','MIA','GRU','DEL','MUC','SYD','YYZ','FCO','LGW','SHA','CTU','BCN','SEA','SZX','TPE','MCO','EWR','NRT','MSP','BOM','MEX','MNL','DME')"
-``
-
-
