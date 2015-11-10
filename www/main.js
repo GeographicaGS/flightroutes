@@ -7,7 +7,7 @@ var airports = {
   'HND': 'Tokyo Haneda Airport',
   'LAX': 'Los Angeles International Airport',
   'DXB': 'Dubai International Airport',
-  'ORD': 'OHare International Airport',
+  'ORD': 'O\'Hare International Airport',
   'CDG': 'Paris-Charles de Gaulle',
   'DFW': 'Dallas/Fort Worth International Airport',
   'HKG': 'Hong Kong International Airport',
@@ -210,8 +210,8 @@ function refresh(){
         $el1 = $dp.find(".el1"),
         $el2 = $dp.find(".el2");
 
-        $el1.find("h6").html(arpt1);
-        $el2.find("h6").html(arpt2);
+        $el1.find("h6").html(arpt1).attr("title",airports[arpt1]);
+        $el2.find("h6").html(arpt2).attr("title",airports[arpt2]);;
 
         $el1.find(".nroutes_total").html(d.total1);
         $el2.find(".nroutes_total").html(d.total2);
