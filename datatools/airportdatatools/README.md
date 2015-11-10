@@ -10,6 +10,7 @@ CRS for output shapefiles: EPSG:4326
 - Fiona.
 - Shapely.
 - GeodesicLinesTogis (https://github.com/GeographicaGS/GeodesicLinesToGIS)
+- PostgreSQL/PostGIS
 
 To install GeodesicLinesTogis last version (REQUIRED!!):
 (See requirements)
