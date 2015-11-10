@@ -202,7 +202,12 @@ function refresh(){
                   " where a.orig='{{arpt1}}' AND b.continent='SA' ) as sa1,"+
                 "(select count(*) from alasarr.flight_routes a "+
                   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2 " ,
+                  " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2," +
+                "(select passengers_2014 from airports_passengersdata "+
+                    " where iata='{{arpt1}}') as passengers1,"+ 
+                "(select passengers_2014 from airports_passengersdata "+
+                    " where iata='{{arpt2}}') as passengers2",
+      
                 { arpt1: arpt1,arpt2: arpt2 })
     .done(function(data) {
       var d = data.rows[0],
@@ -233,6 +238,9 @@ function refresh(){
 
         $el1.find(".nroutes_sa").html(d.sa1);
         $el2.find(".nroutes_sa").html(d.sa2);
+
+        $el1.find(".passengers").html(parseFloat(d.passengers1/1000000).toFixed(2) + 'M');
+        $el2.find(".passengers").html(parseFloat(d.passengers2/1000000).toFixed(2) + 'M');
     })
     .error(function(errors) {
       // errors contains a list of errors

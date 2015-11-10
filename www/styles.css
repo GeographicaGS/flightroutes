@@ -7,10 +7,19 @@ body,html,#map{
     a{
       text-decoration: none;
     }
+    h1{
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    h4{
+      font-size: 14px;
+      font-weight: normal;
+      margin: 12px 0 0px 0;
+    }
     #panel{
       position: absolute;
-      left: 20px;
-      top: 20px;
+      left: 10px;
+      top: 10px;
       width: 300px;
       background-color: rgba(0,0,0,0.7);
       border: 1px solid #888;
@@ -20,18 +29,15 @@ body,html,#map{
     }
 
     #panel select{
+      margin-top: 5px;
       width: 100px;
-    }
-
-    .covis{
-      margin-top: 10px;
     }
 
     #datapanel{
       position: absolute;
-      right: 80px;
-      top: 20px;
-      width: 300px;
+      right: 50px;
+      top: 10px;
+      width: 320px;
       background-color: rgba(0,0,0,0.7);
       border: 1px solid #888;
       border-radius: 5px;
@@ -47,9 +53,13 @@ body,html,#map{
       font-size: 12px;
     }
 
-    #datapanel span.nroutes_total{
+    #datapanel span.big,#datapanel span.big2{
       font-size: 25px;
       font-weight: bold;
+    }
+
+    #datapanel span.big2{
+      font-size: 20px;
     }
 
     #datapanel h6{
@@ -87,11 +97,14 @@ body,html,#map{
       font-size: 12px;
     }
 
-    #datapanel label.l1{
+    #datapanel label.l1,#datapanel label.l2{
       font-size: 20px;
       font-weight: bold;
     }
 
+    #datapanel label.l2{
+      font-size: 16px;
+    }
   
 
     .credits{

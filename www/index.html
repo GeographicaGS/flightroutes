@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="Flight routes around the World">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Flight Routes</title>
+    <title>Top 50 airports by passenger traffic</title>
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="author" href="humans.txt">
@@ -90,10 +90,12 @@
 
     <div id='map'></div>
     <div id='panel'>
-      <h1>Flight Routes around the world</h1>
+      <h1>Top 50 airports by passenger traffic</h1>
+      <h4>Pick two airports:</h4>
       <select id="airport_1" class='ctrl_airport'></select>
       <select id="airport_2" class='ctrl_airport'></select>
 
+      <h4>Visualizations:</h4>
       <div class='covis'>
         <input type="radio" name="viz" value="torque" checked >Animation<br/>
         <input type="radio" name="viz" value="geodesiclines">Route lines<br/>
@@ -102,7 +104,7 @@
       </div>
 
       <div class='coinfo'>
-      <p>This web site shows flight routes from world's fifty busiest airports by passenger traffic, according to Airports Council International 2014 data.<p>
+      <p>This web site shows <strong>flight routes</strong> from world's fifty busiest airports by passenger traffic, according to Airports Council International data from year 2014.<p>
       <p>You can see how an airport is connected with the rest of the world.<p>
       <h3>Data sources</h3>
       <ul>
@@ -116,25 +118,29 @@
 
     <div id="datapanel">
       <div class='el1 arpt'>
-        <h6>JFK</h6>
-        <span class='nroutes_total'></span><label class='l1'>routes</label><br/>
+        <h6>JFK</h6><br/>
+        
+        <span class='nroutes_total big'></span><label class='l1'>routes</label><br/>
         <span class='nroutes_eu'></span><label>to Europe</label><br/>
         <span class='nroutes_af'></span><label>to Africa</label><br/>
         <span class='nroutes_oc'></span><label>to Oceania</label><br/>
         <span class='nroutes_sa'></span><label>to South America</label><br/>
         <span class='nroutes_na'></span><label>to North America</label><br/>
-        <span class='nroutes_as'></span><label>to Asia</label>
+        <span class='nroutes_as'></span><label>to Asia</label><br/><br/>
+        <span class='passengers big2'></span><label class='l2' title="Passengers">pax./year</label><br/>
       </div>
 
       <div class='el2 arpt'>
-        <h6>PEK</h6>
-        <span class='nroutes_total'></span><label class='l1'>routes</label><br/>
+        <h6>PEK</h6><br/>
+        
+        <span class='nroutes_total big'></span><label class='l1'>routes</label><br/>
         <span class='nroutes_eu'></span><label>to Europe</label><br/>
         <span class='nroutes_af'></span><label>to Africa</label><br/>
         <span class='nroutes_oc'></span><label>to Oceania</label><br/>
         <span class='nroutes_sa'></span><label>to South America</label><br/>
         <span class='nroutes_na'></span><label>to North America</label><br/>
-        <span class='nroutes_as'></span><label>to Asia</label>
+        <span class='nroutes_as'></span><label>to Asia</label><br/><br/>
+        <span class='passengers big2'></span><label class='l2' title="Passengers">pax./year</label><br/>
       </div>
 
     </div>
