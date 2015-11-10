@@ -39,8 +39,8 @@ class FlightGeodLines(object):
         """
         Loading airport and routes data
         """
-        apts = pd.read_csv(apts_csv)
-        rts = pd.read_csv(rts_csv, names=rts_cols)
+        apts = pd.read_csv(apts_csv, keep_default_na=False)
+        rts = pd.read_csv(rts_csv, names=rts_cols, keep_default_na=False)
 
         return(apts, rts)
 
@@ -93,6 +93,7 @@ class FlightGeodLines(object):
     def __getSrcGeom(self, apts, apt_src):
         """
         """
+        apts = apts[apts["type"] != "closed"]
         src_geom = apts[apts["iata_code"] == apt_src][["iata_code","latitude_deg","longitude_deg"]]
 
         lat_src = src_geom.latitude_deg.values
