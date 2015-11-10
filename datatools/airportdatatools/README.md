@@ -17,24 +17,24 @@ TODO:
 To install GeodesicLinesTogis last version (REQUIRED!!):
 (See requirements)
 ```
-pip install GeodesicLinesToGIS
+$ pip install GeodesicLinesToGIS
 ```
 
 You've a Docker image avalaible with the requirements, do yourself a favor and use it.
 
 You can either build it
 ```
-docker build -t geographica/airportdatatools .
+$ docker build -t geographica/airportdatatools .
 ```
 Or download the image form docker hub
 ```
-docker pull geographica/airportdatatools
+$ docker pull geographica/airportdatatools
 ```
 
 ## Usage
 If you're using docker:
 ```
-docker run --rm -it -v $(pwd)/airportdatatools:/src/app geographica/airportdatatools
+$ docker run --rm -it -v $(pwd)/airportdatatools:/src/app geographica/airportdatatools
 ```
 
 - Run world airports shapefile building:
@@ -46,6 +46,7 @@ Default folder for merge shp file: /tmp/airports/airports.shp
 - Run flight routes shapefile building for all world large airports:
 ```
 $ python buildflightslayer.py
+
 $ sh merge_shp.sh
 ```
 Default folder for merge shap file: /tmp/flightdata/merged/merged.shp
