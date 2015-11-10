@@ -57,6 +57,8 @@ body,html,#map{
       font-size: 27px;
       font-weight: bold;
       position: relative;
+      border-bottom: 1px solid #444;
+      display: inline-block;
     }
 
     #datapanel h6:after{
