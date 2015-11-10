@@ -126,6 +126,41 @@
       font-size: 12px;
     }
 
+    .coinfo p{
+      font-size: 13px;
+    }
+
+    .coinfo p.disclaimer{
+      color: #bbb;
+      font-size: 11px;
+    }
+
+    .coinfo h3{
+      font-size: 13px;
+      margin: 0;
+      font-weight: normal;
+    }
+    
+    .coinfo ul{
+      margin: 5px 0;
+      padding-left: 27px;
+    }
+
+    .coinfo li{
+      font-size: 12px
+    }
+
+    a{
+      color:#2795ff;
+    }
+
+    .covis{
+      font-size: 12px;
+    }
+     .covis input{
+      margin-right: 5px;
+     }
+
   </style>
   <body>
     <script type="template/cartocss" id="geodesiclines_cartocss">
@@ -157,19 +192,19 @@
       }
       #flight_routes_points[frame-offset=1] {
        marker-width:8;
-       marker-fill-opacity:0.45; 
+       marker-fill-opacity:0.45;
       }
       #flight_routes_points[frame-offset=2] {
        marker-width:10;
-       marker-fill-opacity:0.225; 
+       marker-fill-opacity:0.225;
       }
       #flight_routes_points[frame-offset=3] {
        marker-width:12;
-       marker-fill-opacity:0.15; 
+       marker-fill-opacity:0.15;
       }
       #flight_routes_points[frame-offset=4] {
        marker-width:14;
-       marker-fill-opacity:0.1125; 
+       marker-fill-opacity:0.1125;
       }
     </script>
 
@@ -195,13 +230,13 @@
       }
       #flight_routes_points[frame-offset=1] {
        marker-width:6;
-       marker-fill-opacity:0.45; 
+       marker-fill-opacity:0.45;
       }
       #flight_routes_points[frame-offset=2] {
        marker-width:7;
-       marker-fill-opacity:0.225; 
+       marker-fill-opacity:0.225;
       }
-     
+
     </script>
 
 
@@ -214,12 +249,20 @@
       <div class='covis'>
         <input type="radio" name="viz" value="torque" checked >Animation<br/>
         <input type="radio" name="viz" value="geodesiclines">Route lines<br/>
-        <input type="radio" name="viz" value="torqueblow">Boom
-        
+        <input type="radio" name="viz" value="torqueblow">Boom!
+
       </div>
 
       <div class='coinfo'>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>This web site shows flight routes from world's fifty busiest airports by passenger traffic, according to Airports Council International 2014 data.<p>
+      <p>You can compare two airports of origin at the same time.<p>
+      <h3>Data sources</h3>
+      <ul>
+        <li><a href='http://www.aci.aero' target='_blank'>Airports Council International 2014 data</a></li>
+        <li>Airports data are taken from <a href='http://ourairports.com/data' target='_blank' >http://ourairports.com</a></li>
+        <li>Routes data from <a href='http://openflights.org/data.html' target='_blank'>http://openflights.org</a></li>
+      </ul>
+      <p class='disclaimer'><strong>Disclaimer:</strong> This data is not suitable for navigation. For more info visit <a href='https://github.com/GeographicaGS/flightroutes'>https://github.com/GeographicaGS/flightroutes</a>.</p>
       </div>
     </div>
 
