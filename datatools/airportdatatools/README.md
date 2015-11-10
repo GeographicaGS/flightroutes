@@ -61,13 +61,13 @@ $ pgsql2shp -h db -u postgres -P postgres -f flight_routes test "select * from f
 ## Data sources
 Raw data used to compute flight route geometries:
 
-### Airports
+#### Airports
 http://ourairports.com/data/
 
 #### Routes
 http://openflights.org/data.html
 
-### Airport total passengers
+#### Airport total passengers
 http://www.aci.aero/
 http://en.wikipedia.org/wiki/List_of_the_world%27s_busiest_airports_by_passenger_traffic#2014_statistics
 
