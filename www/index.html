@@ -13,6 +13,10 @@
       height: 100%;
       width: 100%;
       margin: 0;
+      font-family: Helvetica,arial,sans-serif;
+    }
+    a{
+      text-decoration: none;
     }
     #panel{
       position: absolute;
@@ -47,7 +51,7 @@
     }
 
     #datapanel .arpt span{
-      font-size: 14px;
+      font-size: 12px;
     }
 
     #datapanel span.nroutes_total{
@@ -65,6 +69,58 @@
     #datapanel label{
       margin-left: 5px;
       color: #888;
+      font-size: 12px;
+    }
+
+    #datapanel label.l1{
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+     .credits{
+      position: absolute;
+      bottom: 20px;
+      right: 0px;
+    }
+
+    .credits .geographica{
+        position: absolute;
+      top: auto;
+      bottom: 16px;
+      right: 0;
+      float: right;
+      margin-right: 6px;
+      width: 30px;
+      height: 22px;
+      background: url(CP_logo_geographica.svg) 0 -22px no-repeat;
+    }
+    .credits .geographica span{
+      display: block;
+      position: relative;
+      height: 27px;
+      padding-left: 5px;
+      line-height: 27px;
+      white-space: nowrap;
+      top: 0;
+      z-index: 13;
+      -webkit-transform: rotate(270deg);
+      transform: rotate(270deg);
+      -webkit-transform-origin: top left;
+      transform-origin: top left;
+      color: #82b600;
+      width: 0;
+      overflow: hidden;
+      transition: width .2s ease-out;
+        
+    }
+
+    .credits .geographica:hover{
+      background-position: 0 0;
+    }
+    .credits .geographica:hover span{
+      text-decoration: none;
+      overflow:inherit;
+      font-size: 12px;
     }
 
    
@@ -168,7 +224,7 @@
     <div id="datapanel">
       <div class='el1 arpt'>
         <h6>JFK</h6>
-        <span class='nroutes_total'></span><label>routes</label><br/>
+        <span class='nroutes_total'></span><label class='l1'>routes</label><br/>
         <span class='nroutes_eu'></span><label>to Europe</label><br/>
         <span class='nroutes_af'></span><label>to Africa</label><br/>
         <span class='nroutes_oc'></span><label>to Oceania</label><br/>
@@ -179,7 +235,7 @@
 
       <div class='el2 arpt'>
         <h6>PEK</h6>
-        <span class='nroutes_total'></span><label>routes</label><br/>
+        <span class='nroutes_total'></span><label class='l1'>routes</label><br/>
         <span class='nroutes_eu'></span><label>to Europe</label><br/>
         <span class='nroutes_af'></span><label>to Africa</label><br/>
         <span class='nroutes_oc'></span><label>to Oceania</label><br/>
@@ -188,6 +244,11 @@
         <span class='nroutes_as'></span><label>to Asia</label>
       </div>
 
+    </div>
+    <div class="credits">
+      <a href="http://www.geographica.gs/" target="blank" class="geographica">
+        <span>Engineered by Geographica</span>
+      </a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
