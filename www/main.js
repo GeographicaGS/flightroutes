@@ -1,26 +1,56 @@
 'use strict';
 
 var airports = {
-  'JFK' : 'New York',
-  'SFO' : 'San Francisco',
-  'MEX' : 'México DF',
-  'GRU' : 'São Paulo',
-  'EZE' : 'Buenos Aires',
-  'DME' : 'Moscow',
-  'HND' : 'Tokyo',
-  'SYD' : 'Sidney',
-  'PEK' : 'Pekin',
-  'JNB' : 'Johannesburg',
-  'KEF' : 'Reykjavik',
-  'YXU' : 'London',
-  'YYZ' : 'Toronto',
-  'MAD' : 'Madrid',
-  'SVQ' : 'Sevilla',
-  'BCN' : 'Barcelona',
-  'SXF' : 'Berlin',
-  'ZRH' : 'Zurich',
-  'CDG' : 'Paris',
-  'IST' : 'Istambul'
+  'ATL': 'Hartsfield–Jackson Atlanta International Airport',
+  'PEK': 'Beijing Capital International Airport',
+  'LHR': 'London Heathrow Airport',
+  'HND': 'Tokyo Haneda Airport',
+  'LAX': 'Los Angeles International Airport',
+  'DXB': 'Dubai International Airport',
+  'ORD': 'OHare International Airport',
+  'CDG': 'Paris-Charles de Gaulle',
+  'DFW': 'Dallas/Fort Worth International Airport',
+  'HKG': 'Hong Kong International Airport',
+  'FRA': 'Frankfurt Airport',
+  'CGK': 'Soekarno-Hatta International Airport',
+  'IST': 'Istanbul Atatürk Airport',
+  'AMS': 'Amsterdam Airport Schiphol',
+  'CAN': 'Guangzhou Baiyun International Airport',
+  'SIN': 'Singapore Changi Airport',
+  'JFK': 'John F. Kennedy International Airport',
+  'DEN': 'Denver International Airport',
+  'PVG': 'Shanghai Pudong International Airport',
+  'KUL': 'Kuala Lumpur International Airport',
+  'SFO': 'San Francisco International Airport',
+  'BKK': 'Suvarnabhumi Airport',
+  'ICN': 'Seoul Incheon International Airport',
+  'CLT': 'Charlotte Douglas International Airport',
+  'LAS': 'McCarran International Airport (Las Vegas)',
+  'PHX': 'Phoenix Sky Harbor International Airport',
+  'MAD': 'Madrid Barajas Airport',
+  'IAH': 'George Bush Intercontinental Airport (Houston)',
+  'MIA': 'Miami International Airport',
+  'GRU': 'São Paulo-Guarulhos International Airport',
+  'DEL': 'Indira Gandhi International Airport (Delhi)',
+  'MUC': 'Munich Airport',
+  'SYD': 'Sydney Kingsford-Smith Airport',
+  'YYZ': 'Toronto Pearson International Airport',
+  'FCO': 'Leonardo da Vinci–Fiumicino Airport',
+  'LGW': 'London Gatwick Airport',
+  'SHA': 'Shanghai Hongqiao International Airport',
+  'CTU': 'Chengdu Shuangliu International Airport',
+  'BCN': 'Barcelona–El Prat Airport',
+  'SEA': 'Seattle-Tacoma International Airport',
+  'SZX': 'Shenzhen Baoan International Airport',
+  'TPE': 'Taiwan Taoyuan International Airport',
+  'MCO': 'Orlando International Airport',
+  'EWR': 'Newark Liberty International Airport',
+  'NRT': 'Narita International Airport',
+  'MSP': 'Minneapolis/St Paul International Airport',
+  'BOM': 'Chhatrapati Shivaji International Airport',
+  'MEX': 'Benito Juárez International Airport (Mexico city)',
+  'MNL': 'Ninoy Aquino International Airport (Manila)',
+  'DME': 'Domodedovo International Airport (Moscow)'
 };
 
 var map,
@@ -43,8 +73,8 @@ function start(){
   $('select#airport_2').append('<option value="null">None</option>');
 
   $('select#airport_1').val('JFK');
-  $('select#airport_2').val('PEK');  
-  
+  $('select#airport_2').val('PEK');
+
   map = new L.Map('map', {
     center: [0,0],
     zoom: 2,
@@ -80,23 +110,23 @@ function drawLayer(opts){
   var color = el == 0 ? '#0F3B82' : '#055D00';
 
   if (viztype == 'torque' || viztype == 'torqueblow'){
-    var cartocss = viztype == 'torque' ? 
+    var cartocss = viztype == 'torque' ?
       Mustache.render($('#torque_cartocss').html(),{color: color})
       : Mustache.render($('#torque_boom_cartocss').html(),{color: color});
 
     opts = {
-      type: 'torque', 
+      type: 'torque',
       options: {
-        query: "SELECT * FROM flight_routes_points WHERE orig='" + arpt + "'",   
-        user_name: username, 
+        query: "SELECT * FROM flight_routes_points WHERE orig='" + arpt + "'",
+        user_name: username,
         cartocss: cartocss
       }
     };
   }
   else if (viztype == 'geodesiclines'){
     opts = {
-      type: 'cartodb', 
-      user_name: username, 
+      type: 'cartodb',
+      user_name: username,
        sublayers: [{
           sql: "SELECT * FROM flight_routes WHERE orig='" + arpt + "'", // Required
           cartocss:  Mustache.render($('#geodesiclines_cartocss').html(),{color: color})
@@ -168,7 +198,7 @@ function refresh(){
                   " where a.orig='{{arpt1}}' AND b.continent='SA' ) as sa1,"+
                 "(select count(*) from alasarr.flight_routes a "+
                   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2 " , 
+                  " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2 " ,
                 { arpt1: arpt1,arpt2: arpt2 })
     .done(function(data) {
       var d = data.rows[0],
@@ -208,7 +238,3 @@ function refresh(){
 
 
 start();
-
-
-
-

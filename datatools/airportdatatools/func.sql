@@ -1,6 +1,6 @@
 CREATE OR REPLACE FUNCTION flight_routes_create_frame() RETURNS void AS $$
 DECLARE
-  airport varchar(3); 
+  airport varchar(3);
   tid integer;
   tframe integer;
   tframeblow integer;
@@ -37,7 +37,7 @@ DECLARE
   gap numeric;
   pos numeric;
 BEGIN
-  
+
   gap = distance / ST_Length(line);
   pos = 0;
 
@@ -65,7 +65,7 @@ DECLARE
   r record;
   p record;
 BEGIN
-  
+
   for r in select st_dump(multiline) as g loop
     for p in select line2points((r.g).geom,distance) as g loop
       --raise notice 'P: %',st_x(p.g);
@@ -86,13 +86,15 @@ DECLARE
   n integer;
   frameinc integer;
 BEGIN
-  
+
   TRUNCATE flight_routes_points;
   n = 0;
   frameinc = 1;
-  FOR route in (select * from flight_routes where orig in 
-    ( 'JFK','SFO','MEX','GRU','EZE','DME','HND','SYD','PEK','JNB','KEF','YXU','YYZ',
-      'MAD','SVQ','BCN','SXF','ZRH','ZRH','CDG','IST'))
+  FOR route in (select * from flight_routes where orig in
+    ( 'ATL','PEK','LHR','HND','LAX','DXB','ORD','CDG','DFW','HKG','FRA','CGK','IST',
+      'AMS','CAN','SIN','JFK','DEN','PVG','KUL','SFO','BKK','ICN','CLT','LAS','PHX',
+      'MAD','IAH','MIA','GRU','DEL','MUC','SYD','YYZ','FCO','LGW','SHA','CTU','BCN',
+      'SEA','SZX','TPE','MCO','EWR','NRT','MSP','BOM','MEX','MNL','DME'))
    LOOP
 
     tframe = route.frame;
