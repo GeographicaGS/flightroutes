@@ -1,0 +1,28 @@
+s3_id: XXXX
+s3_secret:XXXX
+s3_bucket: flightroutes.geographica.gs
+cloudfront_distribution_id: E9UQZXRBQWWMX
+
+site: www
+
+max_age: 300
+
+gzip:
+  - .html
+  - .js
+
+s3_endpoint: eu-west-1
+
+exclude_from_upload:
+ - .DS_Store
+ - .htaccess
+
+cloudfront_distribution_config:
+  default_cache_behavior:
+    min_TTL: <%= 60 * 60 * 24 %>
+  aliases:
+    quantity: 1
+    items:
+      CNAME: flightroutes.geographica.gs
+
+# cloudfront_invalidate_root: true
