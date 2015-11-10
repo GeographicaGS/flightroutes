@@ -11,6 +11,32 @@ body,html,#map{
       margin-top: 0;
       margin-bottom: 10px;
     }
+    h2{
+      font-size: 10px;
+      color: #888;
+      border-bottom: 1px solid #222;
+      padding-bottom: 5px;
+      display: inline-block;
+    }
+    
+    h2 a{
+      color: #888;
+      position: relative;
+      padding-right: 22px;
+      display: inline-block;
+    }
+    h2 a:after{
+      content: "";
+      background: url(CP_logo_geographica.svg) 0 0px no-repeat;
+      position: absolute;
+      right: 0;
+      top: -2px;
+      width: 24px;
+      height: 15px;
+      background-size: 29px 29px;
+    }
+    
+
     h4{
       font-size: 14px;
       font-weight: normal;
