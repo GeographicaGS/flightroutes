@@ -8,7 +8,7 @@ DECLARE
   frameblowinc integer;
 BEGIN
   frameinc = 8;
-  frameblowinc = 2;
+  frameblowinc = 1;
   FOR airport in select orig from flight_routes group by orig LOOP
     tframe = 1;
     tframeblow = 1;

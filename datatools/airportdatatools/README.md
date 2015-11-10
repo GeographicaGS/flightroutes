@@ -72,3 +72,13 @@ This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
 (at your option) any later version.
+
+
+##
+```
+select flight_routes_create_frame();
+select flight_routes_createpoints(0.4);
+pgsql2shp -h db -u postgres -P postgres -f flight_routes test "select * from flight_routes where orig in ('ATL','PEK','LHR','HND','LAX','DXB','ORD','CDG','DFW','HKG','FRA','CGK','IST','AMS','CAN','SIN','JFK','DEN','PVG','KUL','SFO','BKK','ICN','CLT','LAS','PHX','MAD','IAH','MIA','GRU','DEL','MUC','SYD','YYZ','FCO','LGW','SHA','CTU','BCN','SEA','SZX','TPE','MCO','EWR','NRT','MSP','BOM','MEX','MNL','DME')"
+``
+
+

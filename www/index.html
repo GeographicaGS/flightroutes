@@ -6,69 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Flight Routes</title>
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <link rel="stylesheet" href="styles.css" />
     <link rel="author" href="humans.txt">
   </head>
-  <style type="text/css">
-    body,html,#map{
-      height: 100%;
-      width: 100%;
-      margin: 0;
-    }
-    #panel{
-      position: absolute;
-      left: 20px;
-      top: 20px;
-      width: 300px;
-      background-color: rgba(0,0,0,0.7);
-      border: 1px solid #888;
-      border-radius: 5px;
-      color: #fff;
-      padding: 10px;
-    }
 
-    .covis{
-      margin-top: 10px;
-    }
-
-    #datapanel{
-      position: absolute;
-      right: 80px;
-      top: 20px;
-      width: 300px;
-      background-color: rgba(0,0,0,0.7);
-      border: 1px solid #888;
-      border-radius: 5px;
-      color: #fff;
-      padding: 10px;
-    }
-    #datapanel .arpt{
-      float:left;
-      width: 50%;
-    }
-
-    #datapanel .arpt span{
-      font-size: 14px;
-    }
-
-    #datapanel span.nroutes_total{
-      font-size: 25px;
-      font-weight: bold;
-
-    }
-
-    #datapanel h6{
-      margin: 0 0 10px 0;
-      font-size: 27px;
-      font-weight: bold;
-    }
-
-    #datapanel label{
-      margin-left: 5px;
-      color: #888;
-    }
-
-
-  </style>
   <body>
     <script type="template/cartocss" id="geodesiclines_cartocss">
     #flight_routes{
@@ -156,22 +97,27 @@
       <div class='covis'>
         <input type="radio" name="viz" value="torque" checked >Animation<br/>
         <input type="radio" name="viz" value="geodesiclines">Route lines<br/>
-        <input type="radio" name="viz" value="torqueblow">Boom
+        <input type="radio" name="viz" value="torqueblow">Boom!
 
       </div>
 
       <div class='coinfo'>
-      <p>This web site shows flight routes from world's fifty busiest airports by passenger traffic, according to Airports Council International 2014 data. You can compare two airports of origin at the same time.
-      Data sources: Airports Council International (http://www.aci.aero/) 2014 data are publicy availables in Wikipedia; airports data are taken from http://ourairports.com/data/; routes data from http://openflights.org/data.html.
-      Disclaimer: This data is not suitable for navigation.
-      https://github.com/GeographicaGS/flightroutes</p>
+      <p>This web site shows flight routes from world's fifty busiest airports by passenger traffic, according to Airports Council International 2014 data.<p>
+      <p>You can see how an airport is connected with the rest of the world.<p>
+      <h3>Data sources</h3>
+      <ul>
+        <li><a href='http://www.aci.aero' target='_blank'>Airports Council International 2014 data</a></li>
+        <li>Airports data are taken from <a href='http://ourairports.com/data' target='_blank' >http://ourairports.com</a></li>
+        <li>Routes data from <a href='http://openflights.org/data.html' target='_blank'>http://openflights.org</a></li>
+      </ul>
+      <p class='disclaimer'><strong>Disclaimer:</strong> This data is not suitable for navigation. For more info visit <a href='https://github.com/GeographicaGS/flightroutes'>https://github.com/GeographicaGS/flightroutes</a>.</p>
       </div>
     </div>
 
     <div id="datapanel">
       <div class='el1 arpt'>
         <h6>JFK</h6>
-        <span class='nroutes_total'></span><label>routes</label><br/>
+        <span class='nroutes_total'></span><label class='l1'>routes</label><br/>
         <span class='nroutes_eu'></span><label>to Europe</label><br/>
         <span class='nroutes_af'></span><label>to Africa</label><br/>
         <span class='nroutes_oc'></span><label>to Oceania</label><br/>
@@ -182,7 +128,7 @@
 
       <div class='el2 arpt'>
         <h6>PEK</h6>
-        <span class='nroutes_total'></span><label>routes</label><br/>
+        <span class='nroutes_total'></span><label class='l1'>routes</label><br/>
         <span class='nroutes_eu'></span><label>to Europe</label><br/>
         <span class='nroutes_af'></span><label>to Africa</label><br/>
         <span class='nroutes_oc'></span><label>to Oceania</label><br/>
@@ -191,6 +137,11 @@
         <span class='nroutes_as'></span><label>to Asia</label>
       </div>
 
+    </div>
+    <div class="credits">
+      <a href="http://www.geographica.gs/" target="blank" class="geographica">
+        <span>Engineered by Geographica</span>
+      </a>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>

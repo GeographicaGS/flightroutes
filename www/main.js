@@ -61,8 +61,12 @@ var map,
 
 function populateSelect($el){
   var html = '';
-  for (var code in airports){
-    html += '<option value="' + code + '">' + airports[code] + ' - ' + code + '</option>';
+
+  var order = Object.keys(airports).sort();
+  
+  for (var i in order){
+    var code = order[i];
+    html += '<option value="' + code + '">' + code + ' - ' + airports[code] + '</option>';
   }
   $el.html(html);
 }
@@ -70,6 +74,7 @@ function populateSelect($el){
 function start(){
   populateSelect($('select#airport_1'));
   populateSelect($('select#airport_2'));
+  //$('select#airport_2').append('<option value="null">None</option>');
 
   $('select#airport_1').val('JFK');
   $('select#airport_2').val('PEK');
@@ -204,8 +209,6 @@ function refresh(){
         $dp = $("#datapanel"),
         $el1 = $dp.find(".el1"),
         $el2 = $dp.find(".el2");
-
-      console.log(d);
 
         $el1.find("h6").html(arpt1);
         $el2.find("h6").html(arpt2);
