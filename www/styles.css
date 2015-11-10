@@ -56,6 +56,27 @@ body,html,#map{
       margin: 0 0 10px 0;
       font-size: 27px;
       font-weight: bold;
+      position: relative;
+    }
+
+    #datapanel h6:after{
+      content: "";
+      display: block;
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      left: 68px;
+      
+      top: 7px;
+      border-radius: 9px;
+    }
+
+    #datapanel .el1 h6:after{
+      background-color: #2795ff;
+    }
+
+    #datapanel .el2 h6:after{
+      background-color: #0de000;
     }
 
     #datapanel label{
@@ -68,6 +89,8 @@ body,html,#map{
       font-size: 20px;
       font-weight: bold;
     }
+
+  
 
     .credits{
       position: absolute;
