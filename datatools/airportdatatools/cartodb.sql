@@ -18,4 +18,7 @@ CREATE INDEX frp_orig_idx ON flight_routes_points(orig);
 CREATE INDEX frp_frame_idx ON flight_routes_points(frame);
 CREATE INDEX frp_frameblow_idx ON flight_routes_points(frameblow);
 
+
+
+
 CREATE INDEX airports_iatacode_idx ON airports(iata_code);

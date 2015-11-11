@@ -49,13 +49,28 @@ $ sh merge_shp.sh
 ```
 Default folder for merge shp file: /tmp/flightdata/merged/merged.shp
 
+Import it to postgis
+```
+shp2pgsql -s 4326 -g the_geom -W LATIN1 merged.shp  flight_routes > flight_routes.sql 
+
+psql -U postgres -d <db> -f flight_routes.sql
+```
+
 Proccessing data for PostGIS:
 ```
 select flight_routes_create_frame();
 
 select flight_routes_createpoints(0.4);
+```
 
+Export flight_routes
+```
 $ pgsql2shp -h db -u postgres -P postgres -f flight_routes test "select * from flight_routes where orig in ('ATL','PEK','LHR','HND','LAX','DXB','ORD','CDG','DFW','HKG','FRA','CGK','IST','AMS','CAN','SIN','JFK','DEN','PVG','KUL','SFO','BKK','ICN','CLT','LAS','PHX','MAD','IAH','MIA','GRU','DEL','MUC','SYD','YYZ','FCO','LGW','SHA','CTU','BCN','SEA','SZX','TPE','MCO','EWR','NRT','MSP','BOM','MEX','MNL','DME')"
+```
+
+Export flight_routes_points
+```
+$ pgsql2shp -h db -u postgres -P postgres test flight_routes_points;
 ```
 
 ## Data sources
