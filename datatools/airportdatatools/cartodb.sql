@@ -22,3 +22,6 @@ CREATE INDEX frp_frameblow_idx ON flight_routes_points(frameblow);
 
 
 CREATE INDEX airports_iatacode_idx ON airports(iata_code);
+
+ALTER TABLE airports_passengersdata ADD COLUMN nroutes integer;
+UPDATE airports_passengersdata set nroutes=(select count(*) from flight_routes b where b.orig=iata)
