@@ -2,7 +2,8 @@ body,html,#map{
       height: 100%;
       width: 100%;
       margin: 0;
-      font-family: Helvetica,arial,sans-serif;
+      /*font-family: Helvetica,arial,sans-serif;*/
+      font-family: 'Source Sans Pro', sans-serif;
     }
     a{
       text-decoration: none;
@@ -52,6 +53,8 @@ body,html,#map{
       border-radius: 5px;
       color: #fff;
       padding: 10px;
+
+      display: none;
     }
 
     #panel select{
@@ -135,12 +138,12 @@ body,html,#map{
 
     .credits{
       position: absolute;
-      bottom: 20px;
+      bottom: 32px;
       right: 0px;
     }
 
     .credits .geographica{
-        position: absolute;
+      /*position: absolute;
       top: auto;
       bottom: 16px;
       right: 0;
@@ -148,7 +151,17 @@ body,html,#map{
       margin-right: 6px;
       width: 30px;
       height: 22px;
-      background: url(CP_logo_geographica.svg) 0 -22px no-repeat;
+      background: url(images/FR_aProject_Geographica.svg) 0 -22px no-repeat;*/
+
+      /*position: absolute;
+      top: auto;
+      bottom: 17px;
+      bottom: 3px;
+      right: -46px;
+      width: 180px;
+      height: 48px;*/
+      /*background-image: url(images/FR_logo_Geo_pie.svg);*/
+      /*background-repeat: no-repeat;*/
     }
 
     .credits .geographica span{
@@ -170,9 +183,9 @@ body,html,#map{
       transition: width .2s ease-out;
     }
 
-    .credits .geographica:hover{
+    /*.credits .geographica:hover{
       background-position: 0 0;
-    }
+    }*/
     .credits .geographica:hover span{
       text-decoration: none;
       overflow:inherit;
@@ -213,3 +226,274 @@ body,html,#map{
      .covis input{
       margin-right: 5px;
      }
+
+
+#title_panel{
+  position: absolute;
+  top:0;
+  background-color: #0e0e0e;
+  width: 100%;
+}
+
+#title_panel h1{
+  font-family: 'Quantico', sans-serif;
+  font-size: 48px;
+  line-height: 36px;
+  color:#ffb400;
+  padding: 30px 0 18px 20px;
+  border-top: 10px solid #ffb400;
+  width: 420px;
+  float: left;
+}
+
+#title_panel h1:before{
+  content: url(images/FR_icon-cab.svg);
+  float: left;
+  margin-right: 14px;
+}
+
+#title_panel h1 span{
+  color:#fff;
+  display: block;
+  font-size: 32px;
+  padding-top: 3px;
+}
+
+#airportPanels{
+  width: calc(100% - 440px);
+  float: right;
+}
+
+
+.panelAirport{
+  width: calc(50% - 20px);
+  float: left;
+  padding: 0 20px;
+}
+
+.panelAirport .col1{
+  float: left;
+  width: 29%
+}
+
+.panelAirport .col2{
+  float: left;
+  /*width: 20.37%;*/
+  width: 35.5%;
+  text-align: right;
+}
+
+.panelAirport .col3{
+  float: left;
+  /*width: 22.63%;*/
+  width: 35.5%;
+  text-align: right;
+}
+
+.panelAirport span{
+  font-size: 16px;
+  line-height: 48px;
+  color: #fff;
+}
+
+.panelAirport h4{
+  font-family: 'Quantico', sans-serif;
+  font-size: 48px;
+  line-height: 36px;
+}
+
+.panelAirport h5{
+  font-size: 24px;
+  line-height: 36px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.panelAirport .airportName{
+  color:#fff;
+  font-size: 14px;
+  line-height: 18px;
+  display: block;
+}
+
+.panelAirport .airportCity{
+  text-transform: uppercase;
+  color:#848484;
+  font-size: 13px;
+  line-height: 18px;
+  display: block;
+  padding-bottom: 20px;
+}
+
+.panelAirport .col1 h4{
+  cursor: pointer;
+}
+
+.panelAirport .col1 h4:after{
+  content: url(images/FR_icon-picker1.svg);
+  position: relative;
+  bottom: 10px;
+  left: 10px;
+}
+
+#panelFrom{
+  border-left: 2px solid #5d5d5f;
+  border-right: 2px solid #5d5d5f;
+  box-sizing:border-box;
+}
+
+#panelFrom h4{
+  color:#ffb400;
+}
+
+#panelFrom .col1 h4:after{
+  content: url(images/FR_icon-picker1.svg);
+}
+
+#panelFrom h5{
+  color:#ffb400;
+}
+
+#panelTo h4{
+  color:#82b600;
+}
+
+#panelTo h5{
+  color:#82b600;
+}
+
+#panelTo .col1 h4:after{
+  content: url(images/FR_icon-picker2.svg);
+}
+
+
+#about_panel{
+  position: absolute;
+  bottom:0;
+  background-color: #0e0e0e;
+  max-width: 430px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+#about_panel .content{
+  padding: 0 40px;
+}
+
+#about_panel .content img{
+  padding-top: 45px; 
+  padding: 45px 0px 14px 0;
+}
+
+#about_panel .content .github:after{
+  content: url(images/FR_icon-dir.svg);
+  position: relative;
+  top: 3px;
+  left: 10px;
+}
+
+#about_panel p{
+  color: #848484;
+  margin-top: 30px;
+}
+
+#about_panel p a{
+  color:#ffb400;
+}
+
+#about_panel .sources{
+  border-top: 1px solid #242426;
+}
+
+#about_panel .sources p{
+  font-size: 13px;
+  line-height: 15px;
+}
+
+#about_panel .sources p{
+  margin-top: 20px;
+}
+
+#about_panel span{
+  display: block;
+  color:#ffb400;
+  margin-top: 46px;
+  padding-bottom: 20px;
+}
+
+#about_panel span:before{
+  content: url(images/FR_icon-info.svg);
+  float: left;
+  margin: 2px 10px 0px 15px;
+  cursor: pointer;
+}
+
+
+
+
+.leaflet-control-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 30%;
+}
+
+.leaflet-control-container .leaflet-bar {
+    border-radius: 2px;
+    border: 4px solid rgba(147,149,151,.5);
+}
+
+.leaflet-control-container .leaflet-bottom{
+  display: none;
+}
+
+.leaflet-bar {
+    box-shadow: 0 1px 5px rgba(0,0,0,.65);
+}
+
+.leaflet-control-container .leaflet-bar a.leaflet-control-zoom-in {
+    border-radius: 2px 2px 0 0;
+}
+
+.leaflet-control-container .leaflet-bar a {
+    text-shadow: none;
+    background: url(images/cepsa_ui_sprt_zoom.svg)no-repeat #eee;
+    border: 1px solid #999;
+}
+
+.leaflet-control-container .leaflet-bar a.leaflet-control-zoom-out {
+    margin-top: -1px;
+    border-radius: 0 0 2px 2px;
+    background-position: 0 -30px;
+}
+
+.leaflet-control-container .leaflet-bar a {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    color: transparent;
+}
+
+
+.cartodb-logo{
+  right: 232px !important;
+  left: initial !important;
+  bottom: 32px !important;
+}
+
+div.cartodb-timeslider{
+  left: 0 !important;
+  right: 0 !important;
+  width: 340px !important;
+  margin: 0 auto;
+}
+
+div.cartodb-timeslider .time{
+  display: none;
+}
+
+div.cartodb-timeslider .ui-slider .ui-slider-range{
+  background-color: #ffb400;
+}
