@@ -92,6 +92,19 @@ Developed by Alberto Asuero and Cayetano Benavent.
 
 Geographica - http://www.geographica.gs
 
+## Useful queries
+
+Top airports by routes
+```
+with s as (SELECT count(*),orig FROM alasarr.flight_routes group by orig)
+select * from s order by count DESC
+```
+
+Top airports by passengers
+```
+SELECT iata,passengers_2014 FROM alasarr.airports_passengersdata order by passengers_2014 dESC
+```
+
 ## License
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

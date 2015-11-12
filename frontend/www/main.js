@@ -53,11 +53,64 @@ var airports = {
   'DME': 'Domodedovo International Airport (Moscow)'
 };
 
+var questions = [{
+  title : 'Which is the busiest airport by passengers traffic?',
+  options: [{
+      'code' : 'JFK',
+      'name' : airports['JFK']
+    },
+    {
+      'code' : 'PEK',
+      'name' : airports['PEK']
+    },
+    {
+      'code' : 'HND',
+      'name' : airports['HND']
+    },
+    {
+      'code' : 'ATL',
+      'name' : airports['ATL']
+    },
+    {
+      'code' : 'LHR',
+      'name' : airports['LHR']
+    }
+  ],
+  answer : 'ATL'
+},
+{    
+  title : ' Which airports have more flight connections?',
+  options: [{
+      'code' : 'CDG',
+      'name' : airports['CDG']
+    },
+    {
+      'code' : 'PEK',
+      'name' : airports['PEK']
+    },
+    {
+      'code' : 'FRA',
+      'name' : airports['FRA']
+    },
+    {
+      'code' : 'ATL',
+      'name' : airports['ATL']
+    },
+    {
+      'code' : 'AMS',
+      'name' : airports['AMS']
+    }
+  ],
+  answer : 'FRA'
+}];
+
 var map,
   $s1 = $('select#airport_1'),
   $s2 = $('select#airport_2'),
   layers = [null,null],
-  username = 'alasarr';
+  username = 'alasarr',
+  showQuiz = false,
+  currentQuizQuestion = -1;
 
 function populateSelect($el){
   var html = '';
@@ -94,7 +147,21 @@ function start(){
   $('input[name="viz"]').click(refresh);
   $('select.ctrl_airport').change(refresh);
 
-  refresh();
+  if(typeof(Storage) !== "undefined") {
+    showQuiz = localStorage.showedQuiz ? false : true;
+    if (showQuiz){
+      runQuiz();  
+      //localStorage.showedQuiz = true;
+    }
+    else{
+      refresh();
+    }
+  } 
+  else {
+    showQuiz = true;
+    refresh();
+  }
+  
 }
 
 function drawLayer(opts){
@@ -248,5 +315,89 @@ function refresh(){
     })
 }
 
+
+function runQuiz(){
+  $('#datapanel,#panel').fadeOut(300);
+  nextQuiz();
+}
+
+function nextQuiz(){
+
+  currentQuizQuestion++;
+  
+  if (!questions.hasOwnProperty(currentQuizQuestion)){
+    quizCompleted();
+    return;
+  }
+
+  var template = $('#quiz_template').html(),
+    opts = questions[currentQuizQuestion],
+    $q = $('#quiz');
+
+  opts.questionnumber = currentQuizQuestion+1;
+  opts.total = questions.length;
+
+  $q.html(Mustache.render(template,opts));
+
+  $q.find('[data-action="close"]').click(closeQuiz);
+  $q.find('li').click(checkQuizQuestion);
+  $q.find('input[name="dontshowquiz"]').click(dontShowQuizAgain)
+
+  var lis = $q.find('li'),i = 0;
+  
+  var interval = setInterval(function(){
+    var $el = $(lis[i]);
+    $el.removeClass('hide').addClass('show');
+    i++;
+
+    if (i>=lis.length)
+      clearInterval(interval);
+
+  },500);
+  
+}
+
+function checkQuizQuestion(){
+  var answer = $(this).attr('data-answer'),
+    parent = $(this).closest('li');
+  
+  if (answer == questions[currentQuizQuestion].answer){
+    parent.addClass('right');
+    setTimeout(function(){
+      nextQuiz();
+    },1000);
+  }
+  else{
+    parent.addClass('wrong');
+    setTimeout(function(){
+      parent.removeClass('wrong');
+    },1500);
+  }
+}
+
+function closeQuiz(e){
+  if (e) e.preventDefault();
+
+  $('#datapanel,#panel').fadeIn(300);
+  $('#quiz').fadeOut(300);
+  currentQuizQuestion = -1;
+
+  refresh();
+}
+
+function quizCompleted(){
+  var template = $('#quiz_complete_template').html(),
+    $q = $('#quiz');
+
+  $q.html(Mustache.render(template));
+  $q.find('[data-action="close"]').click(closeQuiz);
+}
+
+function dontShowQuizAgain(){
+  if(typeof(Storage) !== "undefined") {
+    localStorage.showedQuiz = true;
+  } 
+  closeQuiz();
+}
 
 start();

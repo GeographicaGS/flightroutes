@@ -40,7 +40,6 @@
     <meta name="twitter:creator" content="@geographica_gs">
     <meta name="twitter:domain" content="Geographica">
 
-
   </head>
 
   <body>
@@ -120,6 +119,28 @@
 
     </script>
 
+    <script type="template/mustache" id="quiz_template">
+      <a href="#" data-action='close'>Close</a>
+      <h7>{{questionnumber}}/{{total}}</h7>
+      <h5>{{title}}</h5>
+      <ul class="questions">
+        {{#options}}
+          <li class="hide" data-answer="{{code}}"><input type="radio" name="answer"  > {{code}} - {{name}} </li>
+        {{/options}}
+      </ul>
+
+      <div class="dontshow">
+        <input type="checkbox" name="dontshowquiz" />
+        <span>Don&apos;t show this quiz again</span>
+      </div>
+    </script>
+
+
+    <script type="template/mustache" id="quiz_complete_template">
+      <a href="#" data-action='close'>Close</a>
+      <p>Congrats you&apos;ve completed the quiz!<br/> <a href="#" data-action='close'>Enjoy the map</a></p>
+      
+    </script>
 
     <div id='map'></div>
     <div id='panel'>
@@ -185,6 +206,9 @@
         <span>Engineered by Geographica</span>
       </a>
     </div>
+
+    <div id="quiz"></div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="main.js"></script>

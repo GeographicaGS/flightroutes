@@ -210,6 +210,42 @@ body,html,#map{
     .covis{
       font-size: 12px;
     }
-     .covis input{
+
+    .covis input{
       margin-right: 5px;
-     }
+    }
+
+    #quiz{
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      height: 300px;
+      background: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform : translate(-50%, -50%);
+      -webkit-transform : translate(-50%, -50%);
+    }
+    
+    .hide{
+      display: none;
+    }
+
+    .show{
+      display: block;
+    }
+    #quiz .questions ul{
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz ul.questions li.wrong:after{
+      content: "wrong!";
+      color:red;
+    }
+     #quiz ul.questions li.right:after{
+      content: "right!";
+      color:green;
+    }
+
