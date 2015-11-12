@@ -297,13 +297,16 @@ body,html,#map{
     }
 
 
-
-
 #title_panel{
   position: absolute;
   top:0;
   background-color: #0e0e0e;
   width: 100%;
+}
+
+#title_panel .logopanel{
+  width: 420px;
+  float: left;
 }
 
 #title_panel h1{
@@ -313,8 +316,7 @@ body,html,#map{
   color:#ffb400;
   padding: 30px 0 18px 20px;
   border-top: 10px solid #ffb400;
-  width: 420px;
-  float: left;
+  
 }
 
 #title_panel h1:before{
@@ -328,6 +330,19 @@ body,html,#map{
   display: block;
   font-size: 32px;
   padding-top: 3px;
+}
+
+ul.covis{
+  list-style: none;
+  display: inline;
+}
+
+ul.covis li{
+  font-size: 16px;
+}
+
+ul.covis li.selected{
+  color: #ffb400;
 }
 
 #airportPanels{

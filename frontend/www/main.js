@@ -37,7 +37,8 @@ function start(){
   $('input[name="viz"]').click(refresh);
 
   var sql = new cartodb.SQL({ user: username });
-  sql.execute('SELECT iata as code,apt_name as name,metro,iso_a3 as country_code FROM airports_passengersdata ')
+  sql.execute('SELECT iata as code,apt_name as name,metro,iso_a3 as country_code,nroutes, ' +
+          'round(passengers_2014/1000000::numeric,2) as passengers FROM airports_passengersdata order by iata')
     .done(function(data) {
       airports = data.rows;
       if(typeof(Storage) !== "undefined") {
@@ -54,6 +55,8 @@ function start(){
         showQuiz = true;
         refresh();
       }
+
+      $('h4.airportcode').click(pickAirport);
     });
 }
 
@@ -190,23 +193,23 @@ function refresh(){
         $el1.find(".airportCity").html(a1.metro +' ('+a1.country_code+')');
         $el2.find(".airportCity").html(a2.metro +' ('+a2.country_code+')');
 
-        $el1.find(".nroutes_eu").html(d.eu1);
-        $el2.find(".nroutes_eu").html(d.eu2);
+        // $el1.find(".nroutes_eu").html(d.eu1);
+        // $el2.find(".nroutes_eu").html(d.eu2);
 
-        $el1.find(".nroutes_af").html(d.af1);
-        $el2.find(".nroutes_af").html(d.af2);
+        // $el1.find(".nroutes_af").html(d.af1);
+        // $el2.find(".nroutes_af").html(d.af2);
 
-        $el1.find(".nroutes_as").html(d.as1);
-        $el2.find(".nroutes_as").html(d.as2);
+        // $el1.find(".nroutes_as").html(d.as1);
+        // $el2.find(".nroutes_as").html(d.as2);
 
-        $el1.find(".nroutes_oc").html(d.oc1);
-        $el2.find(".nroutes_oc").html(d.oc2);
+        // $el1.find(".nroutes_oc").html(d.oc1);
+        // $el2.find(".nroutes_oc").html(d.oc2);
 
-        $el1.find(".nroutes_na").html(d.na1);
-        $el2.find(".nroutes_na").html(d.na2);
+        // $el1.find(".nroutes_na").html(d.na1);
+        // $el2.find(".nroutes_na").html(d.na2);
 
-        $el1.find(".nroutes_sa").html(d.sa1);
-        $el2.find(".nroutes_sa").html(d.sa2);
+        // $el1.find(".nroutes_sa").html(d.sa1);
+        // $el2.find(".nroutes_sa").html(d.sa2);
 
       
     })
@@ -215,6 +218,8 @@ function refresh(){
       console.log("errors:" + errors);
     })
 }
+
+
 
 function getArpt(code){
   return _.findWhere(airports, {code: code});
@@ -302,6 +307,46 @@ function dontShowQuizAgain(){
   closeQuiz();
 }
 
+function pickAirport(){
+
+  var idPanel = $(this).closest('.panelAirport').attr('id'),
+    renderClass = idPanel == 'panelarpt1' ? 'from' : 'to',
+    template = $('#pick_airport_template').html(),
+    $q = $('#list_airport_panel');
+
+  $q.removeClass('from').removeClass('to').addClass(renderClass);
+
+  var opts = {
+    airports : airports
+  }
+
+  $q.html(Mustache.render(template,opts));
+
+  $q.find('tr[data-code="'+ arpt1 +'"]').addClass('from');
+  $q.find('tr[data-code="'+ arpt2 +'"]').addClass('to');
+
+  $q.removeClass('hide').addClass('show');
+
+  $q.find('.close').click(closeAirport);
+  $q.find('tr[data-code]').click(function(){
+    var code = $(this).attr("data-code");
+    if (idPanel == 'panelarpt1'){
+      arpt1 = code;
+    }
+    else{
+      arpt2 = code;
+    }
+    closeAirport();
+    
+  });
+}
+
+function closeAirport(){
+  var $q = $('#list_airport_panel');
+  $q.removeClass('show').addClass('hide');
+  refresh();
+   
+}
 
 
 start();
