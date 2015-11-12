@@ -230,6 +230,7 @@ input[type="radio"]:checked + label {
   margin-right: 20px;
 }
 #quiz {
+  display: none;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -239,6 +240,9 @@ input[type="radio"]:checked + label {
   color: #ffffff;
   z-index: 9999;
   text-align: center;
+}
+#quiz.show {
+  display: block;
 }
 #quiz .wrapper {
   position: absolute;

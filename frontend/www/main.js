@@ -226,6 +226,7 @@ function getArpt(code){
 }
 
 function runQuiz(){
+  $('#quiz').fadeIn(300);
   nextQuiz();
 }
 
@@ -234,7 +235,8 @@ function nextQuiz(){
   currentQuizQuestion++;
 
   if (!questions.hasOwnProperty(currentQuizQuestion)){
-    quizCompleted();
+    //quizCompleted();
+    closeQuiz();
     return;
   }
 
@@ -341,7 +343,7 @@ function pickAirport(){
       arpt2 = code;
     }
     closeAirport();
-    
+
   });
 }
 
@@ -349,7 +351,7 @@ function closeAirport(){
   var $q = $('#list_airport_panel');
   $q.removeClass('show').addClass('hide');
   refresh();
-   
+
 }
 
 

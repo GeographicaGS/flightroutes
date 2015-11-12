@@ -272,6 +272,7 @@ body,html,#map{
     }
 
     #quiz{
+      display: none;
       position: fixed;
       top: 0;
       bottom: 0;
@@ -281,6 +282,10 @@ body,html,#map{
       color: @quiz_fg;
       z-index: 9999;
       text-align: center;
+
+      &.show {
+        display: block;
+      }
 
       .wrapper {
         position: absolute;
