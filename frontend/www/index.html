@@ -147,6 +147,29 @@
       
     </script>
 
+    <script type="template/mustache" id="pick_airport_template">
+      <h3>Pick an airport...</h3>
+      <img class="close" src="images/FR_cerrar_tabla.svg" alt="close">
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            <td>Routes</td>
+            <td>Pax./year</td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#airports}}
+          <tr data-code="{{code}}" >
+            <td><span class="iata">{{code}}</span> {{name}}<span class="city">{{metro}} ({{country_code}})</span></td>
+            <td>{{nroutes}}</td>
+            <td>{{passengers}}M</td>
+          </tr>
+          {{/airports}}
+        </tbody>
+      </table>
+    </script>
+
     <div id='map'></div>
 
     <div id="title_panel">
@@ -200,10 +223,7 @@
           <span class="airportCity">New York CITY (NY)</span>
         </div>
 
-
       </div>
-
-
     </div>
 
     <div id="about_panel">
@@ -237,110 +257,10 @@
       <span>About</span>
     </div>
 
-
-
-    <div id="list_airport_panel" class="from">
+    <div id="list_airport_panel" class="hide">
     <!-- <div id="list_airport_panel" class="to"> -->
-      <h3>Pick an airport...</h3>
-      <img class="close" src="images/FR_cerrar_tabla.svg" alt="close">
-      <table>
-        <thead>
-          <tr>
-            <td></td>
-            <td>Routes</td>
-            <td>Pax./year</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td> <span class="iata">AMS</span> Amsterdam Airport Schipol<span class="city">Amsterdam (HOL)</span></td>
-            <td>232</td>
-            <td>54.98M</td>
-          </tr>
-
-          <tr class="from">
-            <td> <span class="iata">AMS</span> Amsterdam Airport Schipol<span class="city">Amsterdam (HOL)</span></td>
-            <td>232</td>
-            <td>54.98M</td>
-          </tr>
-
-          <tr class="to">
-            <td> <span class="iata">AMS</span> Amsterdam Airport Schipol<span class="city">Amsterdam (HOL)</span></td>
-            <td>232</td>
-            <td>54.98M</td>
-          </tr>
-
-        </tbody>
-      </table>
+      
     </div>
-
-
-
-
-
-
-
-
-
-    <!--
-    <div id='panel'>
-      <h1>Flight routes around the world</h1>
-      <h2><a href="http://www.geographica.gs" target="_blank">A project by Geographica</a></h2>
-      <h4>Pick two airports:</h4>
-      <select id="airport_1" class='ctrl_airport'></select>
-      <select id="airport_2" class='ctrl_airport'></select>
-
-      <h4>Visualizations:</h4>
-      <div class='covis'>
-        <input type="radio" name="viz" value="torque" checked >Animation<br/>
-        <input type="radio" name="viz" value="geodesiclines">Route lines<br/>
-        <input type="radio" name="viz" value="torqueblow">Boom!
-
-      </div>
-
-      <div class='coinfo'>
-        <p>This web site shows <strong>flight routes</strong> from world's 50 busiest airports by passenger traffic, according to Airports Council International data from year 2014.<p>
-        <p>You can see how an airport is connected with the rest of the world.<p>
-        <h3>Data sources</h3>
-        <ul>
-          <li><a href='http://www.aci.aero' target='_blank'>Airports Council International 2014 data</a></li>
-          <li>Airports data are taken from <a href='http://ourairports.com/data' target='_blank' >http://ourairports.com</a></li>
-          <li>Routes data from <a href='http://openflights.org/data.html' target='_blank'>http://openflights.org</a></li>
-        </ul>
-        
-        <p>For more info visit <a href='https://github.com/GeographicaGS/flightroutes'>Geographica at GitHub</a>.</p>
-        <p class='disclaimer'><strong>Disclaimer:</strong> This data is not suitable for navigation.<p>
-      </div>
-    </div>
-
-    <div id="datapanel">
-      <div class='el1 arpt'>
-        <h6>JFK</h6><br/>
-        
-        <span class='nroutes_total big'></span><label class='l1'>routes</label><br/>
-        <span class='nroutes_eu'></span><label>to Europe</label><br/>
-        <span class='nroutes_af'></span><label>to Africa</label><br/>
-        <span class='nroutes_oc'></span><label>to Oceania</label><br/>
-        <span class='nroutes_sa'></span><label>to South America</label><br/>
-        <span class='nroutes_na'></span><label>to North America</label><br/>
-        <span class='nroutes_as'></span><label>to Asia</label><br/><br/>
-        <span class='passengers big2'></span><label class='l2' title="Passengers">pax./year</label><br/>
-      </div>
-
-      <div class='el2 arpt'>
-        <h6>PEK</h6><br/>
-        
-        <span class='nroutes_total big'></span><label class='l1'>routes</label><br/>
-        <span class='nroutes_eu'></span><label>to Europe</label><br/>
-        <span class='nroutes_af'></span><label>to Africa</label><br/>
-        <span class='nroutes_oc'></span><label>to Oceania</label><br/>
-        <span class='nroutes_sa'></span><label>to South America</label><br/>
-        <span class='nroutes_na'></span><label>to North America</label><br/>
-        <span class='nroutes_as'></span><label>to Asia</label><br/><br/>
-        <span class='passengers big2'></span><label class='l2' title="Passengers">pax./year</label><br/>
-      </div>
-
-    </div> -->
 
 
     <div class="credits">
