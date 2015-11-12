@@ -5,15 +5,15 @@ var questions = [{
   options: ['JFK','PEK','HND','ATL','LHR'],
   answer : 'ATL'
 },
-{    
+{
   title : ' Which airports have more flight connections?',
   options: ['CDG','PEK','FRA', 'ATL', 'AMS'],
   answer : 'FRA'
 }];
 
-var map, 
+var map,
   airports,
-  arpt1 = 'ATL', 
+  arpt1 = 'ATL',
   arpt2 = 'FRA',
   layers = [null,null],
   username = 'alasarr',
@@ -44,13 +44,13 @@ function start(){
       if(typeof(Storage) !== "undefined") {
         showQuiz = localStorage.showedQuiz ? false : true;
         if (showQuiz){
-          runQuiz();  
+          runQuiz();
           //localStorage.showedQuiz = true;
         }
         else{
           refresh();
         }
-      } 
+      }
       else {
         showQuiz = true;
         refresh();
@@ -74,7 +74,7 @@ function drawLayer(opts){
   }
 
   var opts;
-  var color = el == 0 ? '#0F3B82' : '#055D00';
+  var color = el == 0 ? '#ffb400' : '#82b600';
 
   if (viztype == 'torque' || viztype == 'torqueblow'){
     var cartocss = viztype == 'torque' ?
@@ -128,7 +128,7 @@ function refresh(){
                 "(select count(*) from flight_routes where orig='{{arpt1}}') as total1," +
                 "(select count(*) from alasarr.flight_routes where orig='{{arpt2}}') as total2,"+
                  "(select passengers_2014 from airports_passengersdata "+
-                    " where iata='{{arpt1}}') as passengers1,"+ 
+                    " where iata='{{arpt1}}') as passengers1,"+
                 "(select passengers_2014 from airports_passengersdata "+
                     " where iata='{{arpt2}}') as passengers2"
                 // "(select count(*) from alasarr.flight_routes a "+
@@ -168,7 +168,7 @@ function refresh(){
                 //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
                 //   " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2" +
                ,
-      
+
                 { arpt1: arpt1,arpt2: arpt2 })
     .done(function(data) {
       var d = data.rows[0],
@@ -211,7 +211,7 @@ function refresh(){
         // $el1.find(".nroutes_sa").html(d.sa1);
         // $el2.find(".nroutes_sa").html(d.sa2);
 
-      
+
     })
     .error(function(errors) {
       // errors contains a list of errors
@@ -232,7 +232,7 @@ function runQuiz(){
 function nextQuiz(){
 
   currentQuizQuestion++;
-  
+
   if (!questions.hasOwnProperty(currentQuizQuestion)){
     quizCompleted();
     return;
@@ -241,6 +241,10 @@ function nextQuiz(){
   var template = $('#quiz_template').html(),
     opts = questions[currentQuizQuestion],
     $q = $('#quiz');
+
+  for(var i=0; i<opts.options.length; i++){
+    opts.options[i] = getArpt(opts.options[i]);
+  }
 
   opts.questionnumber = currentQuizQuestion+1;
   opts.total = questions.length;
@@ -252,23 +256,23 @@ function nextQuiz(){
   $q.find('input[name="dontshowquiz"]').click(dontShowQuizAgain)
 
   var lis = $q.find('li'),i = 0;
-  
-  var interval = setInterval(function(){
-    var $el = $(lis[i]);
-    $el.removeClass('hide').addClass('show');
-    i++;
 
-    if (i>=lis.length)
-      clearInterval(interval);
+  // var interval = setInterval(function(){
+  //   var $el = $(lis[i]);
+  //   $el.removeClass('hide').addClass('show');
+  //   i++;
+  //
+  //   if (i>=lis.length)
+  //     clearInterval(interval);
+  //
+  // },500);
 
-  },500);
-  
 }
 
 function checkQuizQuestion(){
   var answer = $(this).attr('data-answer'),
     parent = $(this).closest('li');
-  
+
   if (answer == questions[currentQuizQuestion].answer){
     parent.addClass('right');
     setTimeout(function(){
@@ -303,7 +307,7 @@ function quizCompleted(){
 function dontShowQuizAgain(){
   if(typeof(Storage) !== "undefined") {
     localStorage.showedQuiz = true;
-  } 
+  }
   closeQuiz();
 }
 

@@ -40,7 +40,7 @@
     <meta name="twitter:creator" content="@geographica_gs">
     <meta name="twitter:domain" content="Geographica">
 
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
 
     <link href='https://fonts.googleapis.com/css?family=Quantico:400,700' rel='stylesheet' type='text/css'>
 
@@ -66,8 +66,8 @@
         -torque-data-aggregation:linear;
       }
       #flight_routes_points{
-        comp-op: lighter;
-        marker-fill-opacity: 0.9;
+        // comp-op: lighter;
+        marker-fill-opacity: 1.0;
         marker-line-color: #FFF;
         marker-line-width: 0;
         marker-line-opacity: 1;
@@ -104,39 +104,56 @@
       -torque-data-aggregation:linear;
       }
       #flight_routes_points{
-        comp-op: lighter;
+        //comp-op: lighter;
         marker-fill-opacity: 0.9;
         marker-line-color: #FFF;
         marker-line-width: 0;
         marker-line-opacity: 1;
         marker-type: ellipse;
-        marker-width: 5;
+        marker-width: 3;
         marker-fill: {{color}};
       }
       #flight_routes_points[frame-offset=1] {
-       marker-width:6;
+       marker-width:4;
        marker-fill-opacity:0.45;
       }
       #flight_routes_points[frame-offset=2] {
-       marker-width:7;
+       marker-width:5;
        marker-fill-opacity:0.225;
+      }
+      #flight_routes_points[frame-offset=2] {
+       marker-width:6;
+       marker-fill-opacity:0.125;
       }
 
     </script>
 
     <script type="template/mustache" id="quiz_template">
-      <a href="#" data-action='close'>Close</a>
-      <h7>{{questionnumber}}/{{total}}</h7>
-      <h5>{{title}}</h5>
-      <ul class="questions">
-        {{#options}}
-          <li class="hide" data-answer="{{code}}"><input type="radio" name="answer"  > {{code}} - {{name}} </li>
-        {{/options}}
-      </ul>
-
-      <div class="dontshow">
-        <input type="checkbox" name="dontshowquiz" />
-        <span>Don&apos;t show this quiz again</span>
+      <div class="wrapper">
+        <h1><img src="./images/FR_icon-airplane.svg">A couple of questions</h1>
+        <div class="question">
+          <a href="#" data-action='close' class="close"><img src="./images/FR_arrow_skip.svg">Skip</a>
+          <h5>{{title}}</h5>
+          <ul class="questions">
+            {{#options}}
+              <li class="show" data-answer="{{code}}"><input type="radio" name="answer">
+                <p>
+                  <span class="code">{{code}}</span>
+                  <span class="name">{{name}}</span>
+                  <span class="metro">{{metro}} ({{country_code}})</span>
+                </p>
+                <p>
+                  <span class="label">Pax./year</span>
+                  {{passengers}}
+                </p>
+              </li>
+            {{/options}}
+          </ul>
+        </div>
+        <div class="dontshow">
+          <input type="checkbox" name="dontshowquiz" />
+          <span>Don&apos;t show this quiz again</span>
+        </div>
       </div>
     </script>
 
@@ -144,7 +161,7 @@
     <script type="template/mustache" id="quiz_complete_template">
       <a href="#" data-action='close'>Close</a>
       <p>Congrats you&apos;ve completed the quiz!<br/> <a href="#" data-action='close'>Enjoy the map</a></p>
-      
+
     </script>
 
     <script type="template/mustache" id="pick_airport_template">
@@ -175,16 +192,16 @@
     <div id="title_panel">
 
       <div class="logopanel">
-        <h1>Flight routes <span>around the world</span></h1>  
+        <h1>Flight routes <span>around the world</span></h1>
          <div class='covis'>
           <input id="rad1" type="radio" name="viz" value="torque" checked ><label for="rad1">Animation</label>
           <input id="rad2" type="radio" name="viz" value="geodesiclines"><label for="rad2">Route lines</label>
           <input id="rad3" type="radio" name="viz" value="torqueblow"><label for="rad2">Boom!</label>
-        </div>    
-      </div>  
-      
+        </div>
+      </div>
+
       <div id="airportPanels">
-        
+
         <div id="panelarpt1" class="panelAirport">
           <div>
             <div class="col1">
@@ -230,13 +247,13 @@
       <div class="content">
         <a target="_blank" href="http://www.geographica.gs/es"><img src="images/FR_aProject_Geographica.svg" alt="Geographica"></a>
         <p>
-          This web site shows flight routes from world's 
-          50 busiest airports by passenger traffic, 
-          according to Airports Council International data 
+          This web site shows flight routes from world's
+          50 busiest airports by passenger traffic,
+          according to Airports Council International data
           from year 2014.
         </p>
         <p>
-          You can see how an airport is connected with 
+          You can see how an airport is connected with
           the rest of the world.
         </p>
         <p>
@@ -245,9 +262,9 @@
         <div class="sources">
           <p>
             <strong>Data sources</strong><br>
-            Airports Council International 2014 data<br>
-            Airports data are taken from <a target="_blank" href="http://ourairports.com">http://ourairports.com</a><br>
-            Routes data from <a target="_blank" href="http://openflights.org">http://openflights.org</a><br>
+            Passengers data: <a target="_blank" href="https://en.wikipedia.org/wiki/List_of_the_world%27s_busiest_airports_by_passenger_traffic#2014_statistics"> Airports Council International</a><br>
+            Airports data: <a target="_blank" href="http://ourairports.com/data/">http://ourairports.com</a><br>
+            Routes data: <a target="_blank" href="http://openflights.org/data.html">http://openflights.org</a><br>
           </p>
           <p>
             Disclaimer: This data is not suitable for navigation.
@@ -257,11 +274,7 @@
       <span>About</span>
     </div>
 
-    <div id="list_airport_panel" class="hide">
-    <!-- <div id="list_airport_panel" class="to"> -->
-      
-    </div>
-
+    <div id="list_airport_panel" class="hide"></div>
 
     <div class="credits">
       <a href="http://www.geographica.gs/" target="blank" class="geographica">
