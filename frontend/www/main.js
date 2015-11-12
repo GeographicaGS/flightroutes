@@ -42,7 +42,7 @@ function start(){
     .done(function(data) {
       airports = data.rows;
       if(typeof(Storage) !== "undefined") {
-        showQuiz = localStorage.showedQuiz ? false : true;
+        showQuiz = localStorage.showedQuiz=="true" ? false : true;
         if (showQuiz){
           runQuiz();
           //localStorage.showedQuiz = true;
@@ -308,9 +308,13 @@ function quizCompleted(){
 
 function dontShowQuizAgain(){
   if(typeof(Storage) !== "undefined") {
-    localStorage.showedQuiz = true;
+    if ($(this).is(':checked')){
+      localStorage.showedQuiz = true;  
+    }
+    else{
+      localStorage.showedQuiz = false;
+    }
   }
-  closeQuiz();
 }
 
 function pickAirport(){
