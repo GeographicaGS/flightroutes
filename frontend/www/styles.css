@@ -245,14 +245,7 @@ input[type="radio"]:checked + label {
   display: block;
 }
 #quiz .wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  max-height: 100vh;
-  overflow: auto;
+  padding: 20px;
 }
 #quiz h1 {
   font-weight: 600;
@@ -273,7 +266,8 @@ input[type="radio"]:checked + label {
 }
 #quiz .question .close {
   position: absolute;
-  right: 0;
+  left: calc(50% + 350px);
+  margin-right: -300px;
   top: 7px;
   color: #707070;
   font-size: 18px;
@@ -286,15 +280,17 @@ input[type="radio"]:checked + label {
 }
 #quiz .question h5 {
   font-size: 48px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1em;
-  margin: 20px 36px;
+  margin: 36px auto;
+  max-width: 600px;
 }
 #quiz .question ul.questions li {
   width: 450px;
   margin: 0 auto;
   border-bottom: 2px solid #848484;
   position: relative;
+  cursor: pointer;
 }
 #quiz .question ul.questions li input[type=radio] {
   display: none;
