@@ -278,12 +278,12 @@ function refresh(){
                 { arpt1: arpt1,arpt2: arpt2 })
     .done(function(data) {
       var d = data.rows[0],
-        $dp = $("#datapanel"),
-        $el1 = $dp.find(".el1"),
-        $el2 = $dp.find(".el2");
+        $dp = $("#airportPanels"),
+        $el1 = $dp.find("#panelarpt1"),
+        $el2 = $dp.find("#panelarpt2");
 
-        $el1.find("h6").html(arpt1).attr("title",airports[arpt1]);
-        $el2.find("h6").html(arpt2).attr("title",airports[arpt2]);;
+        $el1.find(".airportcode").html(arpt1).attr("title",airports[arpt1]);
+        $el2.find(".airportcode").html(arpt2).attr("title",airports[arpt2]);;
 
         $el1.find(".nroutes_total").html(d.total1);
         $el2.find(".nroutes_total").html(d.total2);
