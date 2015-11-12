@@ -1,0 +1,665 @@
+// out: ./styles.css, compress: false
+
+@quiz_bg: #242427;
+@quiz_fg: #fff;
+@quiz_airportcode: #ffb400;
+@quiz_correct: #82b600;
+@quiz_wrong: #848484;
+@quiz_text: #707070;
+
+body,html,#map{
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      /*font-family: Helvetica,arial,sans-serif;*/
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+    a{
+      text-decoration: none;
+    }
+    h1{
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    h2{
+      font-size: 10px;
+      color: #888;
+      border-bottom: 1px solid #222;
+      padding-bottom: 5px;
+      display: inline-block;
+    }
+
+    h2 a{
+      color: #888;
+      position: relative;
+      padding-right: 22px;
+      display: inline-block;
+    }
+    h2 a:after{
+      content: "";
+      background: url(CP_logo_geographica.svg) 0 0px no-repeat;
+      position: absolute;
+      right: 0;
+      top: -2px;
+      width: 24px;
+      height: 15px;
+      background-size: 29px 29px;
+    }
+
+
+    h4{
+      font-size: 14px;
+      font-weight: normal;
+      margin: 12px 0 0px 0;
+    }
+    #panel{
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      width: 300px;
+      background-color: rgba(0,0,0,0.7);
+      border: 1px solid #888;
+      border-radius: 5px;
+      color: #fff;
+      padding: 10px;
+
+      display: none;
+    }
+
+    #panel select{
+      margin-top: 5px;
+      width: 100px;
+    }
+
+    #datapanel{
+      position: absolute;
+      right: 50px;
+      top: 10px;
+      width: 320px;
+      background-color: rgba(0,0,0,0.7);
+      border: 1px solid #888;
+      border-radius: 5px;
+      color: #fff;
+      padding: 10px;
+    }
+    #datapanel .arpt{
+      float:left;
+      width: 50%;
+    }
+
+    #datapanel .arpt span{
+      font-size: 12px;
+    }
+
+    #datapanel span.big,#datapanel span.big2{
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    #datapanel span.big2{
+      font-size: 20px;
+    }
+
+    #datapanel h6{
+      margin: 0 0 10px 0;
+      font-size: 27px;
+      font-weight: bold;
+      position: relative;
+      border-bottom: 1px solid #444;
+      display: inline-block;
+    }
+
+    #datapanel h6:after{
+      content: "";
+      display: block;
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      left: 68px;
+
+      top: 7px;
+      border-radius: 9px;
+    }
+
+    #datapanel .el1 h6:after{
+      background-color: #2795ff;
+    }
+
+    #datapanel .el2 h6:after{
+      background-color: #0de000;
+    }
+
+    #datapanel label{
+      margin-left: 5px;
+      color: #888;
+      font-size: 12px;
+    }
+
+    #datapanel label.l1,#datapanel label.l2{
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #datapanel label.l2{
+      font-size: 16px;
+    }
+
+
+    .credits{
+      position: absolute;
+      bottom: 32px;
+      right: 0px;
+    }
+
+    .credits .geographica{
+      /*position: absolute;
+      top: auto;
+      bottom: 16px;
+      right: 0;
+      float: right;
+      margin-right: 6px;
+      width: 30px;
+      height: 22px;
+      background: url(images/FR_aProject_Geographica.svg) 0 -22px no-repeat;*/
+
+      /*position: absolute;
+      top: auto;
+      bottom: 17px;
+      bottom: 3px;
+      right: -46px;
+      width: 180px;
+      height: 48px;*/
+      /*background-image: url(images/FR_logo_Geo_pie.svg);*/
+      /*background-repeat: no-repeat;*/
+    }
+
+    .credits .geographica span{
+      display: block;
+      position: relative;
+      height: 27px;
+      padding-left: 5px;
+      line-height: 27px;
+      white-space: nowrap;
+      top: 0;
+      z-index: 13;
+      -webkit-transform: rotate(270deg);
+      transform: rotate(270deg);
+      -webkit-transform-origin: top left;
+      transform-origin: top left;
+      color: #82b600;
+      width: 0;
+      overflow: hidden;
+      transition: width .2s ease-out;
+    }
+
+    /*.credits .geographica:hover{
+      background-position: 0 0;
+    }*/
+    .credits .geographica:hover span{
+      text-decoration: none;
+      overflow:inherit;
+      font-size: 12px;
+    }
+
+    .coinfo p{
+      font-size: 13px;
+    }
+
+    .coinfo p.disclaimer{
+      color: #bbb;
+      font-size: 11px;
+    }
+
+    .coinfo h3{
+      font-size: 13px;
+      margin: 0;
+      font-weight: normal;
+    }
+
+    .coinfo ul{
+      margin: 5px 0;
+      padding-left: 27px;
+    }
+
+    .coinfo li{
+      font-size: 12px
+    }
+
+    a{
+      color:#2795ff;
+    }
+
+    .covis{
+      font-size: 12px;
+    }
+
+    .covis input{
+      margin-right: 5px;
+    }
+
+    #quiz{
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      height: 100vh;
+      width: 100vw;
+      background: @quiz_bg;
+      color: @quiz_fg;
+      z-index: 9999;
+      text-align: center;
+
+      .wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform : translate(-50%, -50%);
+        -webkit-transform : translate(-50%, -50%);
+        max-height: 100vh;
+        overflow: auto;
+      }
+
+      h1 {
+        font-weight: 600;
+        font-size: 18px;
+        text-transform: uppercase;
+        color: @quiz_text;
+        margin-top: 10px;
+
+        img {
+          display: block;
+          margin: 0 auto 10px;
+          border: 1px solid @quiz_text;
+          border-radius: 50%;
+          padding: 15px 6px;
+        }
+      }
+
+      .question {
+        position: relative;
+
+        .close {
+          position: absolute;
+          right: 0;
+          top: 7px;
+
+          color: @quiz_text;
+          font-size: 18px;
+          font-weight: 600;
+          text-transform: uppercase;
+
+          img {
+            display: block;
+            margin: 0 auto 10px;
+          }
+        }
+
+        h5 {
+          font-size: 48px;
+          font-weight: 500;
+          line-height: 1em;
+          max-width: calc(~'100% - 30px');
+        }
+
+        ul.questions {
+          li {
+            width: 450px;
+            margin: 0 auto;
+            border-bottom: 2px solid @quiz_wrong;
+            position: relative;
+
+            input[type=radio] {
+              display: none;
+            }
+
+            p {
+              margin: 0 0 14px 0;
+
+              .code {
+                font-family: 'quantico', sans-serif;
+                font-weight: 700;
+                font-size: 48px;
+                color: @quiz_airportcode;
+                display: block;
+              }
+
+              .name, .metro {
+                font-family: 'source sans pro', sans-serif;
+                font-weight: 400;
+                font-size: 14px;
+                color: #fff;
+              }
+
+              .metro {
+                color: @quiz_text;
+                font-weight: bold;
+                text-transform: uppercase;
+                margin-left: 5px;
+              }
+            }
+
+            &.wrong {
+              p {
+                text-align: left;
+                color: @quiz_wrong;
+
+                span {
+                  color: @quiz_wrong;
+                }
+              }
+            }
+
+            &.right {
+              p {
+                text-align: left;
+                color: @quiz_correct;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .hide{
+      display: none;
+    }
+
+    .show{
+      display: block;
+    }
+    #quiz .questions ul{
+      margin: 0;
+      padding: 0;
+    }
+
+    #quiz ul.questions li.right:after, #quiz ul.questions li.wrong:after{
+      content: '';
+      display: block;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      left: 50%;
+      top: 2em;
+      transform: translate(-50%, -50%);
+      -ms-transform : translate(-50%, -50%);
+      -webkit-transform : translate(-50%, -50%);
+    }
+
+    #quiz ul.questions li.wrong:after{
+      background: url('./images/FR_icon-sadface.svg') no-repeat center;
+    }
+
+    #quiz ul.questions li.right:after{
+      background: url('./images/FR_icon-check.svg') no-repeat center;
+    }
+
+#title_panel{
+  position: absolute;
+  top:0;
+  background-color: #0e0e0e;
+  width: 100%;
+}
+
+#title_panel h1{
+  font-family: 'Quantico', sans-serif;
+  font-size: 48px;
+  line-height: 36px;
+  color:#ffb400;
+  padding: 30px 0 18px 20px;
+  border-top: 10px solid #ffb400;
+  width: 420px;
+  float: left;
+}
+
+#title_panel h1:before{
+  content: url(images/FR_icon-cab.svg);
+  float: left;
+  margin-right: 14px;
+}
+
+#title_panel h1 span{
+  color:#fff;
+  display: block;
+  font-size: 32px;
+  padding-top: 3px;
+}
+
+#airportPanels{
+  width: calc(100% - 440px);
+  float: right;
+}
+
+
+.panelAirport{
+  width: calc(50% - 20px);
+  float: left;
+  padding: 0 20px;
+}
+
+.panelAirport .col1{
+  float: left;
+  width: 29%
+}
+
+.panelAirport .col2{
+  float: left;
+  /*width: 20.37%;*/
+  width: 35.5%;
+  text-align: right;
+}
+
+.panelAirport .col3{
+  float: left;
+  /*width: 22.63%;*/
+  width: 35.5%;
+  text-align: right;
+}
+
+.panelAirport span{
+  font-size: 16px;
+  line-height: 48px;
+  color: #fff;
+}
+
+.panelAirport h4{
+  font-family: 'Quantico', sans-serif;
+  font-size: 48px;
+  line-height: 36px;
+  font-weight: 700;
+}
+
+.panelAirport h5{
+  font-size: 24px;
+  line-height: 36px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.panelAirport .airportName{
+  color:#fff;
+  font-size: 14px;
+  line-height: 18px;
+  display: block;
+}
+
+.panelAirport .airportCity{
+  text-transform: uppercase;
+  color:#848484;
+  font-size: 13px;
+  line-height: 18px;
+  display: block;
+  padding-bottom: 20px;
+}
+
+.panelAirport .col1 h4{
+  cursor: pointer;
+}
+
+.panelAirport .col1 h4:after{
+  content: url(images/FR_icon-picker1.svg);
+  position: relative;
+  bottom: 10px;
+  left: 10px;
+}
+
+#panelarpt1{
+  border-left: 2px solid #5d5d5f;
+  border-right: 2px solid #5d5d5f;
+  box-sizing:border-box;
+}
+
+#panelarpt1 h4{
+  color:#ffb400;
+}
+
+#panelarpt1 .col1 h4:after{
+  content: url(images/FR_icon-picker1.svg);
+}
+
+#panelarpt1 h5{
+  color:#ffb400;
+}
+
+#panelarpt2 h4{
+  color:#82b600;
+}
+
+#panelarpt2 h5{
+  color:#82b600;
+}
+
+#panelarpt2 .col1 h4:after{
+  content: url(images/FR_icon-picker2.svg);
+}
+
+
+#about_panel{
+  position: absolute;
+  bottom:0;
+  background-color: #0e0e0e;
+  max-width: 430px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+#about_panel .content{
+  padding: 0 40px;
+}
+
+#about_panel .content img{
+  padding-top: 45px;
+  padding: 45px 0px 14px 0;
+}
+
+#about_panel .content .github:after{
+  content: url(images/FR_icon-dir.svg);
+  position: relative;
+  top: 3px;
+  left: 10px;
+}
+
+#about_panel p{
+  color: #848484;
+  margin-top: 30px;
+}
+
+#about_panel p a{
+  color:#ffb400;
+}
+
+#about_panel .sources{
+  border-top: 1px solid #242426;
+}
+
+#about_panel .sources p{
+  font-size: 13px;
+  line-height: 15px;
+}
+
+#about_panel .sources p{
+  margin-top: 20px;
+}
+
+#about_panel span{
+  display: block;
+  color:#ffb400;
+  margin-top: 46px;
+  padding-bottom: 20px;
+}
+
+#about_panel span:before{
+  content: url(images/FR_icon-info.svg);
+  float: left;
+  margin: 2px 10px 0px 15px;
+  cursor: pointer;
+}
+
+
+
+
+.leaflet-control-container{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  height: 30%;
+}
+
+.leaflet-control-container .leaflet-bar {
+    border-radius: 2px;
+    border: 4px solid rgba(147,149,151,.5);
+}
+
+.leaflet-control-container .leaflet-bottom{
+  display: none;
+}
+
+.leaflet-bar {
+    box-shadow: 0 1px 5px rgba(0,0,0,.65);
+}
+
+.leaflet-control-container .leaflet-bar a.leaflet-control-zoom-in {
+    border-radius: 2px 2px 0 0;
+}
+
+.leaflet-control-container .leaflet-bar a {
+    text-shadow: none;
+    background: url(images/cepsa_ui_sprt_zoom.svg)no-repeat #eee;
+    border: 1px solid #999;
+}
+
+.leaflet-control-container .leaflet-bar a.leaflet-control-zoom-out {
+    margin-top: -1px;
+    border-radius: 0 0 2px 2px;
+    background-position: 0 -30px;
+}
+
+.leaflet-control-container .leaflet-bar a {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    color: transparent;
+}
+
+
+.cartodb-logo{
+  right: 232px !important;
+  left: initial !important;
+  bottom: 32px !important;
+}
+
+div.cartodb-timeslider{
+  left: 0 !important;
+  right: 0 !important;
+  width: 340px !important;
+  margin: 0 auto;
+}
+
+div.cartodb-timeslider .time{
+  display: none;
+}
+
+div.cartodb-timeslider .ui-slider .ui-slider-range{
+  background-color: #ffb400;
+}
