@@ -529,13 +529,29 @@ ul.covis li.selected{
 
 
 #list_airport_panel{
-  display: none;
   position: absolute;
   background-color: rgba(14,14,14,.9);
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+  overflow: auto;
+  opacity: 0;
+  
+  display: block;
+  visibility: hidden;
+
+  -webkit-transition: opacity .3s ease-in-out;
+  -moz-transition: opacity .3s ease-in-out;
+  -ms-transition: opacity .3s ease-in-out;
+  -o-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+
+}
+
+#list_airport_panel.show{
+  visibility: visible;
+  opacity: 1;
 }
 
 #list_airport_panel.from tr:hover{
