@@ -66,8 +66,8 @@
         -torque-data-aggregation:linear;
       }
       #flight_routes_points{
-        comp-op: lighter;
-        marker-fill-opacity: 0.9;
+        // comp-op: lighter;
+        marker-fill-opacity: 1.0;
         marker-line-color: #FFF;
         marker-line-width: 0;
         marker-line-opacity: 1;
@@ -104,22 +104,26 @@
       -torque-data-aggregation:linear;
       }
       #flight_routes_points{
-        comp-op: lighter;
+        //comp-op: lighter;
         marker-fill-opacity: 0.9;
         marker-line-color: #FFF;
         marker-line-width: 0;
         marker-line-opacity: 1;
         marker-type: ellipse;
-        marker-width: 5;
+        marker-width: 3;
         marker-fill: {{color}};
       }
       #flight_routes_points[frame-offset=1] {
-       marker-width:6;
+       marker-width:4;
        marker-fill-opacity:0.45;
       }
       #flight_routes_points[frame-offset=2] {
-       marker-width:7;
+       marker-width:5;
        marker-fill-opacity:0.225;
+      }
+      #flight_routes_points[frame-offset=2] {
+       marker-width:6;
+       marker-fill-opacity:0.125;
       }
 
     </script>
