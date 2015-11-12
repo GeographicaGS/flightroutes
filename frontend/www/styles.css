@@ -234,22 +234,25 @@ body,html,#map{
     .covis input{
       margin-right: 5px;
       position: relative;
-      bottom: 2px;
+      top: 3px;
     }
 
     .covis input:first-of-type{
       margin-left: 20px;
     }
 
-    /*.covis input[type=radio ]:not(old) {
+    .covis input[type=radio ]:not(old) {
       -webkit-appearance:none;
-      width:20px;
-      height:20px;
-      border:1px solid darkgray;
-      border-radius:50%;
-      outline:none;
-      box-shadow:0 0 5px 0px gray inset;
-    }*/
+      width:10px;
+      height:10px;
+      border:2px solid #7f7f7f;
+      border-radius:100%;
+    }
+
+    .covis input[type=radio ]:not(old):checked {
+      background-color: #ffb400;
+      border:none;
+    }
 
     input[type="radio"]:checked+label{
       color: #ffb400;
@@ -457,6 +460,7 @@ ul.covis li.selected{
   max-width: 430px;
   font-size: 16px;
   line-height: 20px;
+  background-color: #0e0e0e;
 }
 
 #about_panel .content{
@@ -467,10 +471,6 @@ ul.covis li.selected{
   -webkit-transition: max-height 0.5s;
   -moz-transition: max-height 0.5s;
   transition: max-height 0.5s;
-}
-
-#about_panel:hover{
-  background-color: #0e0e0e;
 }
 
 #about_panel:hover .content {
@@ -529,13 +529,29 @@ ul.covis li.selected{
 
 
 #list_airport_panel{
-  display: none;
   position: absolute;
   background-color: rgba(14,14,14,.9);
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
+  overflow: auto;
+  opacity: 0;
+  
+  display: block;
+  visibility: hidden;
+
+  -webkit-transition: opacity .3s ease-in-out;
+  -moz-transition: opacity .3s ease-in-out;
+  -ms-transition: opacity .3s ease-in-out;
+  -o-transition: opacity .3s ease-in-out;
+  transition: opacity .3s ease-in-out;
+
+}
+
+#list_airport_panel.show{
+  visibility: visible;
+  opacity: 1;
 }
 
 #list_airport_panel.from tr:hover{
