@@ -398,11 +398,11 @@ ul.covis li.selected {
   color: #ffb400;
 }
 #airportPanels {
-  width: calc(-340%);
+  width: calc(100% - 440px);
   float: right;
 }
 .panelAirport {
-  width: calc(30%);
+  width: calc(50% - 20px);
   float: left;
   padding: 0 20px;
 }
