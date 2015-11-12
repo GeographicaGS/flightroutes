@@ -137,14 +137,14 @@
           <ul class="questions">
             {{#options}}
               <li class="show" data-answer="{{code}}"><input type="radio" name="answer">
-                <p>
+                <p class="airport">
                   <span class="code">{{code}}</span>
                   <span class="name">{{name}}</span>
                   <span class="metro">{{metro}} ({{country_code}})</span>
                 </p>
-                <p>
+                <p class="passengers">
                   <span class="label">Pax./year</span>
-                  {{passengers}}
+                  <span class="value">{{passengers}}</span>
                 </p>
               </li>
             {{/options}}

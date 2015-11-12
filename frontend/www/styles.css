@@ -230,6 +230,7 @@ input[type="radio"]:checked + label {
   margin-right: 20px;
 }
 #quiz {
+  display: none;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -239,6 +240,9 @@ input[type="radio"]:checked + label {
   color: #ffffff;
   z-index: 9999;
   text-align: center;
+}
+#quiz.show {
+  display: block;
 }
 #quiz .wrapper {
   position: absolute;
@@ -284,7 +288,7 @@ input[type="radio"]:checked + label {
   font-size: 48px;
   font-weight: 500;
   line-height: 1em;
-  max-width: calc(100% - 30px);
+  margin: 20px 36px;
 }
 #quiz .question ul.questions li {
   width: 450px;
@@ -295,38 +299,74 @@ input[type="radio"]:checked + label {
 #quiz .question ul.questions li input[type=radio] {
   display: none;
 }
-#quiz .question ul.questions li p {
+#quiz .question ul.questions li p.airport {
   margin: 0 0 14px 0;
 }
-#quiz .question ul.questions li p .code {
+#quiz .question ul.questions li p.airport .code {
   font-family: 'quantico', sans-serif;
   font-weight: 700;
   font-size: 48px;
   color: #ffb400;
   display: block;
 }
-#quiz .question ul.questions li p .name,
-#quiz .question ul.questions li p .metro {
+#quiz .question ul.questions li p.airport .name,
+#quiz .question ul.questions li p.airport .metro {
   font-family: 'source sans pro', sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #fff;
 }
-#quiz .question ul.questions li p .metro {
+#quiz .question ul.questions li p.airport .metro {
   color: #707070;
   font-weight: bold;
   text-transform: uppercase;
   margin-left: 5px;
 }
-#quiz .question ul.questions li.wrong p {
+#quiz .question ul.questions li p.passengers {
+  display: none;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 7px;
+  margin: 0;
+}
+#quiz .question ul.questions li p.passengers .label {
+  display: block;
+  color: #848484;
+  font-size: 14px;
+}
+#quiz .question ul.questions li p.passengers .value {
+  color: #848484;
+  font-family: 'quantico', sans-serif;
+  font-size: 24px;
+}
+#quiz .question ul.questions li.wrong p.airport {
   text-align: left;
   color: #848484;
 }
-#quiz .question ul.questions li.wrong p span {
+#quiz .question ul.questions li.wrong p.airport span {
   color: #848484;
 }
-#quiz .question ul.questions li.right p {
+#quiz .question ul.questions li.wrong p.passengers {
+  display: block;
+}
+#quiz .question ul.questions li.wrong p.passengers .label {
+  color: #848484;
+}
+#quiz .question ul.questions li.wrong p.passengers .value {
+  color: #848484;
+}
+#quiz .question ul.questions li.right p.airport {
   text-align: left;
+  color: #82b600;
+}
+#quiz .question ul.questions li.right p.passengers {
+  display: block;
+}
+#quiz .question ul.questions li.right p.passengers .label {
+  color: #fff;
+}
+#quiz .question ul.questions li.right p.passengers .value {
   color: #82b600;
 }
 .hide {
