@@ -444,6 +444,8 @@ ul.covis li.selected {
   font-size: 14px;
   line-height: 18px;
   display: block;
+  position: relative;
+  top: 17px;
 }
 .panelAirport .airportCity {
   text-transform: uppercase;
@@ -451,7 +453,7 @@ ul.covis li.selected {
   font-size: 13px;
   line-height: 18px;
   display: block;
-  padding-bottom: 20px;
+  /*padding-bottom: 20px;*/
 }
 .panelAirport .col1 h4 {
   cursor: pointer;
@@ -557,7 +559,7 @@ ul.covis li.selected {
   cursor: pointer;
 }
 #list_airport_panel {
-  position: absolute;
+  /*position: absolute;*/
   background-color: rgba(14, 14, 14, 0.9);
   top: 0;
   bottom: 0;
