@@ -1,136 +1,26 @@
 'use strict';
 
-var airports = {
-  'ATL': 'Hartsfield–Jackson Atlanta International Airport',
-  'PEK': 'Beijing Capital International Airport',
-  'LHR': 'London Heathrow Airport',
-  'HND': 'Tokyo Haneda Airport',
-  'LAX': 'Los Angeles International Airport',
-  'DXB': 'Dubai International Airport',
-  'ORD': 'O\'Hare International Airport',
-  'CDG': 'Paris-Charles de Gaulle',
-  'DFW': 'Dallas/Fort Worth International Airport',
-  'HKG': 'Hong Kong International Airport',
-  'FRA': 'Frankfurt Airport',
-  'CGK': 'Soekarno-Hatta International Airport',
-  'IST': 'Istanbul Atatürk Airport',
-  'AMS': 'Amsterdam Airport Schiphol',
-  'CAN': 'Guangzhou Baiyun International Airport',
-  'SIN': 'Singapore Changi Airport',
-  'JFK': 'John F. Kennedy International Airport',
-  'DEN': 'Denver International Airport',
-  'PVG': 'Shanghai Pudong International Airport',
-  'KUL': 'Kuala Lumpur International Airport',
-  'SFO': 'San Francisco International Airport',
-  'BKK': 'Suvarnabhumi Airport',
-  'ICN': 'Seoul Incheon International Airport',
-  'CLT': 'Charlotte Douglas International Airport',
-  'LAS': 'McCarran International Airport (Las Vegas)',
-  'PHX': 'Phoenix Sky Harbor International Airport',
-  'MAD': 'Madrid Barajas Airport',
-  'IAH': 'George Bush Intercontinental Airport (Houston)',
-  'MIA': 'Miami International Airport',
-  'GRU': 'São Paulo-Guarulhos International Airport',
-  'DEL': 'Indira Gandhi International Airport (Delhi)',
-  'MUC': 'Munich Airport',
-  'SYD': 'Sydney Kingsford-Smith Airport',
-  'YYZ': 'Toronto Pearson International Airport',
-  'FCO': 'Leonardo da Vinci–Fiumicino Airport',
-  'LGW': 'London Gatwick Airport',
-  'SHA': 'Shanghai Hongqiao International Airport',
-  'CTU': 'Chengdu Shuangliu International Airport',
-  'BCN': 'Barcelona–El Prat Airport',
-  'SEA': 'Seattle-Tacoma International Airport',
-  'SZX': 'Shenzhen Baoan International Airport',
-  'TPE': 'Taiwan Taoyuan International Airport',
-  'MCO': 'Orlando International Airport',
-  'EWR': 'Newark Liberty International Airport',
-  'NRT': 'Narita International Airport',
-  'MSP': 'Minneapolis/St Paul International Airport',
-  'BOM': 'Chhatrapati Shivaji International Airport',
-  'MEX': 'Benito Juárez International Airport (Mexico city)',
-  'MNL': 'Ninoy Aquino International Airport (Manila)',
-  'DME': 'Domodedovo International Airport (Moscow)'
-};
-
 var questions = [{
   title : 'Which is the busiest airport by passengers traffic?',
-  options: [{
-      'code' : 'JFK',
-      'name' : airports['JFK']
-    },
-    {
-      'code' : 'PEK',
-      'name' : airports['PEK']
-    },
-    {
-      'code' : 'HND',
-      'name' : airports['HND']
-    },
-    {
-      'code' : 'ATL',
-      'name' : airports['ATL']
-    },
-    {
-      'code' : 'LHR',
-      'name' : airports['LHR']
-    }
-  ],
+  options: ['JFK','PEK','HND','ATL','LHR'],
   answer : 'ATL'
 },
 {    
   title : ' Which airports have more flight connections?',
-  options: [{
-      'code' : 'CDG',
-      'name' : airports['CDG']
-    },
-    {
-      'code' : 'PEK',
-      'name' : airports['PEK']
-    },
-    {
-      'code' : 'FRA',
-      'name' : airports['FRA']
-    },
-    {
-      'code' : 'ATL',
-      'name' : airports['ATL']
-    },
-    {
-      'code' : 'AMS',
-      'name' : airports['AMS']
-    }
-  ],
+  options: ['CDG','PEK','FRA', 'ATL', 'AMS'],
   answer : 'FRA'
 }];
 
-var map,
-  $s1 = $('select#airport_1'),
-  $s2 = $('select#airport_2'),
+var map, 
+  airports,
+  arpt1 = 'ATL', 
+  arpt2 = 'FRA',
   layers = [null,null],
   username = 'alasarr',
   showQuiz = false,
   currentQuizQuestion = -1;
 
-function populateSelect($el){
-  var html = '';
-
-  var order = Object.keys(airports).sort();
-  
-  for (var i in order){
-    var code = order[i];
-    html += '<option value="' + code + '">' + code + ' - ' + airports[code] + '</option>';
-  }
-  $el.html(html);
-}
-
 function start(){
-  populateSelect($('select#airport_1'));
-  populateSelect($('select#airport_2'));
-  //$('select#airport_2').append('<option value="null">None</option>');
-
-  $('select#airport_1').val('JFK');
-  $('select#airport_2').val('PEK');
 
   map = new L.Map('map', {
     center: [0,0],
@@ -145,23 +35,26 @@ function start(){
   }).addTo(map);
 
   $('input[name="viz"]').click(refresh);
-  $('select.ctrl_airport').change(refresh);
 
-  if(typeof(Storage) !== "undefined") {
-    showQuiz = localStorage.showedQuiz ? false : true;
-    if (showQuiz){
-      runQuiz();  
-      //localStorage.showedQuiz = true;
-    }
-    else{
-      refresh();
-    }
-  } 
-  else {
-    showQuiz = true;
-    refresh();
-  }
-  
+  var sql = new cartodb.SQL({ user: username });
+  sql.execute('SELECT iata as code,apt_name as name,metro,iso_a3 as country_code FROM airports_passengersdata ')
+    .done(function(data) {
+      airports = data.rows;
+      if(typeof(Storage) !== "undefined") {
+        showQuiz = localStorage.showedQuiz ? false : true;
+        if (showQuiz){
+          runQuiz();  
+          //localStorage.showedQuiz = true;
+        }
+        else{
+          refresh();
+        }
+      } 
+      else {
+        showQuiz = true;
+        refresh();
+      }
+    });
 }
 
 function drawLayer(opts){
@@ -213,10 +106,7 @@ function drawLayer(opts){
 
 }
 function refresh(){
-  var viztype = $('input[name="viz"]:checked').val(),
-    arpt1 = $s1.val(),
-    arpt2 = $s2.val();
-
+  var viztype = $('input[name="viz"]:checked').val();
 
   drawLayer({
     arpt : arpt1,
@@ -234,46 +124,47 @@ function refresh(){
   sql.execute("SELECT " +
                 "(select count(*) from flight_routes where orig='{{arpt1}}') as total1," +
                 "(select count(*) from alasarr.flight_routes where orig='{{arpt2}}') as total2,"+
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt1}}' AND b.continent='EU' ) as eu1,"+
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='EU' ) as eu2," +
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt1}}' AND b.continent='AF' ) as af1,"+
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='AF' ) as af2," +
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt1}}' AND b.continent='AS' ) as as1,"+
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='AS' ) as as2," +
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt1}}' AND b.continent='OC' ) as oc1,"+
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='OC' ) as oc2," +
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt1}}' AND b.continent='NA' ) as na1,"+
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='NA' ) as na2," +
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt1}}' AND b.continent='SA' ) as sa1,"+
-                "(select count(*) from alasarr.flight_routes a "+
-                  " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                  " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2," +
-                "(select passengers_2014 from airports_passengersdata "+
+                 "(select passengers_2014 from airports_passengersdata "+
                     " where iata='{{arpt1}}') as passengers1,"+ 
                 "(select passengers_2014 from airports_passengersdata "+
-                    " where iata='{{arpt2}}') as passengers2",
+                    " where iata='{{arpt2}}') as passengers2"
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt1}}' AND b.continent='EU' ) as eu1,"+
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt2}}' AND b.continent='EU' ) as eu2," +
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt1}}' AND b.continent='AF' ) as af1,"+
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt2}}' AND b.continent='AF' ) as af2," +
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt1}}' AND b.continent='AS' ) as as1,"+
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt2}}' AND b.continent='AS' ) as as2," +
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt1}}' AND b.continent='OC' ) as oc1,"+
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt2}}' AND b.continent='OC' ) as oc2," +
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt1}}' AND b.continent='NA' ) as na1,"+
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt2}}' AND b.continent='NA' ) as na2," +
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt1}}' AND b.continent='SA' ) as sa1,"+
+                // "(select count(*) from alasarr.flight_routes a "+
+                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
+                //   " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2" +
+               ,
       
                 { arpt1: arpt1,arpt2: arpt2 })
     .done(function(data) {
@@ -282,11 +173,22 @@ function refresh(){
         $el1 = $dp.find("#panelarpt1"),
         $el2 = $dp.find("#panelarpt2");
 
-        $el1.find(".airportcode").html(arpt1).attr("title",airports[arpt1]);
-        $el2.find(".airportcode").html(arpt2).attr("title",airports[arpt2]);;
+        $el1.find(".airportcode").html(arpt1);
+        $el2.find(".airportcode").html(arpt2);
 
         $el1.find(".nroutes_total").html(d.total1);
         $el2.find(".nroutes_total").html(d.total2);
+
+        $el1.find(".passengers").html(parseFloat(d.passengers1/1000000).toFixed(2) + 'M');
+        $el2.find(".passengers").html(parseFloat(d.passengers2/1000000).toFixed(2) + 'M');
+
+        var a1 = getArpt(arpt1), a2 = getArpt(arpt2);
+
+        $el1.find(".airportName").html(a1.name);
+        $el2.find(".airportName").html(a2.name);
+
+        $el1.find(".airportCity").html(a1.metro +' ('+a1.country_code+')');
+        $el2.find(".airportCity").html(a2.metro +' ('+a2.country_code+')');
 
         $el1.find(".nroutes_eu").html(d.eu1);
         $el2.find(".nroutes_eu").html(d.eu2);
@@ -306,8 +208,7 @@ function refresh(){
         $el1.find(".nroutes_sa").html(d.sa1);
         $el2.find(".nroutes_sa").html(d.sa2);
 
-        $el1.find(".passengers").html(parseFloat(d.passengers1/1000000).toFixed(2) + 'M');
-        $el2.find(".passengers").html(parseFloat(d.passengers2/1000000).toFixed(2) + 'M');
+      
     })
     .error(function(errors) {
       // errors contains a list of errors
@@ -315,9 +216,11 @@ function refresh(){
     })
 }
 
+function getArpt(code){
+  return _.findWhere(airports, {code: code});
+}
 
 function runQuiz(){
-  $('#datapanel,#panel').fadeOut(300);
   nextQuiz();
 }
 
@@ -378,7 +281,6 @@ function checkQuizQuestion(){
 function closeQuiz(e){
   if (e) e.preventDefault();
 
-  $('#datapanel,#panel').fadeIn(300);
   $('#quiz').fadeOut(300);
   currentQuizQuestion = -1;
 
@@ -399,5 +301,7 @@ function dontShowQuizAgain(){
   } 
   closeQuiz();
 }
+
+
 
 start();
