@@ -459,6 +459,7 @@ ul.covis li.selected {
   font-size: 48px;
   line-height: 10px;
   font-weight: 700;
+  position: relative;
 }
 .panelAirport h5 {
   font-size: 24px;
@@ -487,9 +488,9 @@ ul.covis li.selected {
 }
 .panelAirport .col1 h4:after {
   content: url(images/FR_icon-picker1.svg);
-  position: relative;
-  bottom: 10px;
-  left: 10px;
+  position: absolute;
+  top: -10px;
+  right: -5px;
 }
 #panelarpt1 {
   border-left: 2px solid #5d5d5f;
