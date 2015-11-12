@@ -234,15 +234,16 @@ body,html,#map{
     .covis input{
       margin-right: 5px;
       position: relative;
-      top: 3px;
+      bottom: 3px;
     }
 
     .covis input:first-of-type{
       margin-left: 20px;
     }
 
-    .covis input[type=radio ]:not(old) {
+    /*.covis input[type=radio ]:not(old) {
       -webkit-appearance:none;
+      -moz-appearance:none;
       width:10px;
       height:10px;
       border:2px solid #7f7f7f;
@@ -252,7 +253,7 @@ body,html,#map{
     .covis input[type=radio ]:not(old):checked {
       background-color: #ffb400;
       border:none;
-    }
+    }*/
 
     input[type="radio"]:checked+label{
       color: #ffb400;
@@ -461,6 +462,11 @@ ul.covis li.selected{
   font-size: 16px;
   line-height: 20px;
   background-color: #0e0e0e;
+  visibility: hidden;
+}
+
+#about_panel:hover{
+  visibility: visible;
 }
 
 #about_panel .content{
@@ -517,7 +523,12 @@ ul.covis li.selected{
   display: block;
   color:#ffb400;
   margin-top: 46px;
-  padding-bottom: 20px;
+  padding-bottom: 16px;
+  padding-top: 16px;
+  visibility: visible;
+
+  background-color: #0e0e0e;
+  width: 125px;
 }
 
 #about_panel span:before{
