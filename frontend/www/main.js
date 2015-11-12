@@ -74,7 +74,7 @@ function drawLayer(opts){
   }
 
   var opts;
-  var color = el == 0 ? '#0F3B82' : '#055D00';
+  var color = el == 0 ? '#ffb400' : '#82b600';
 
   if (viztype == 'torque' || viztype == 'torqueblow'){
     var cartocss = viztype == 'torque' ?

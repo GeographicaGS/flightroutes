@@ -221,11 +221,42 @@ body,html,#map{
     }
 
     .covis{
-      font-size: 12px;
+      font-size: 16px;
+      line-height: 48px;
+      color:#fff;
+      position: absolute;
+      top: 160px;
+      background-color: #0e0e0e;
+      width: 440px;
+      border-right: 2px solid #5d5d5f;
     }
 
     .covis input{
       margin-right: 5px;
+      position: relative;
+      bottom: 2px;
+    }
+
+    .covis input:first-of-type{
+      margin-left: 20px;
+    }
+
+    /*.covis input[type=radio ]:not(old) {
+      -webkit-appearance:none;
+      width:20px;
+      height:20px;
+      border:1px solid darkgray;
+      border-radius:50%;
+      outline:none;
+      box-shadow:0 0 5px 0px gray inset;
+    }*/
+
+    input[type="radio"]:checked+label{
+      color: #ffb400;
+    }
+
+    .covis label{
+      margin-right: 20px;
     }
 
     #quiz{
@@ -423,7 +454,6 @@ ul.covis li.selected{
 #about_panel{
   position: absolute;
   bottom:0;
-  background-color: #0e0e0e;
   max-width: 430px;
   font-size: 16px;
   line-height: 20px;
@@ -431,6 +461,22 @@ ul.covis li.selected{
 
 #about_panel .content{
   padding: 0 40px;
+  max-height: 0;
+  overflow: hidden;
+
+  -webkit-transition: max-height 0.5s;
+  -moz-transition: max-height 0.5s;
+  transition: max-height 0.5s;
+}
+
+#about_panel:hover{
+  background-color: #0e0e0e;
+}
+
+#about_panel:hover .content {
+  width: inherit;
+  max-height: 460px;
+  visibility: visible;
 }
 
 #about_panel .content img{
@@ -483,6 +529,7 @@ ul.covis li.selected{
 
 
 #list_airport_panel{
+  display: none;
   position: absolute;
   background-color: rgba(14,14,14,.9);
   top: 0;
