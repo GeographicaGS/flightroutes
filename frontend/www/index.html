@@ -150,12 +150,14 @@
     <div id='map'></div>
 
     <div id="title_panel">
-      <h1>Flight routes <span>around the world</span></h1>
 
-      <div class='covis'>
-        <input type="radio" name="viz" value="torque" checked >Animation<br/>
-        <input type="radio" name="viz" value="geodesiclines">Route lines<br/>
-        <input type="radio" name="viz" value="torqueblow">Boom!
+      <div class="logopanel">
+        <h1>Flight routes <span>around the world</span></h1>  
+        <ul class='covis'>
+          <li class='selected' data-vis='torque'>Animation</li>
+          <li data-vis='geodesiclines'>Route lines</li>
+          <li data-vis='torqueblow'>Boom!</li>
+        </ul>
       </div>
       
       <div id="airportPanels">
