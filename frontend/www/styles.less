@@ -332,7 +332,7 @@ body,html,#map{
           font-size: 48px;
           font-weight: 500;
           line-height: 1em;
-          max-width: calc(~'100% - 30px');
+          margin: 20px 36px;
         }
 
         ul.questions {
@@ -346,7 +346,7 @@ body,html,#map{
               display: none;
             }
 
-            p {
+            p.airport {
               margin: 0 0 14px 0;
 
               .code {
@@ -372,8 +372,29 @@ body,html,#map{
               }
             }
 
+            p.passengers {
+              display: none;
+              text-align: right;
+              position: absolute;
+              right: 0;
+              top: 7px;
+              margin: 0;
+
+              .label{
+                display: block;
+                color: @quiz_wrong;
+                font-size: 14px;
+              }
+
+              .value {
+                color: @quiz_wrong;
+                font-family: 'quantico', sans-serif;
+                font-size: 24px;
+              }
+            }
+
             &.wrong {
-              p {
+              p.airport {
                 text-align: left;
                 color: @quiz_wrong;
 
@@ -381,12 +402,35 @@ body,html,#map{
                   color: @quiz_wrong;
                 }
               }
+
+              p.passengers {
+                display: block;
+
+                .label {
+                  color: @quiz_wrong;
+                }
+
+                .value {
+                  color: @quiz_wrong;
+                }
+              }
             }
 
             &.right {
-              p {
+              p.airport {
                 text-align: left;
                 color: @quiz_correct;
+              }
+              p.passengers {
+                display: block;
+
+                .label {
+                  color: #fff;
+                }
+
+                .value {
+                  color: @quiz_correct;
+                }
               }
             }
           }
