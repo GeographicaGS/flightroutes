@@ -199,7 +199,7 @@ a {
   line-height: 48px;
   color: #fff;
   position: absolute;
-  top: 160px;
+  top: 119px;
   background-color: #0e0e0e;
   width: 440px;
   border-right: 2px solid #5d5d5f;
@@ -207,22 +207,12 @@ a {
 .covis input {
   margin-right: 5px;
   position: relative;
-  top: 3px;
+  bottom: 3px;
 }
 .covis input:first-of-type {
   margin-left: 20px;
 }
-.covis input[type=radio]:not(old) {
-  -webkit-appearance: none;
-  width: 10px;
-  height: 10px;
-  border: 2px solid #7f7f7f;
-  border-radius: 100%;
-}
-.covis input[type=radio]:not(old):checked {
-  background-color: #ffb400;
-  border: none;
-}
+
 input[type="radio"]:checked + label {
   color: #ffb400;
 }
@@ -474,13 +464,15 @@ ul.covis li.selected {
   font-size: 24px;
   line-height: 10px;
   margin-top: 20px;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
 .panelAirport .airportName {
   color: #fff;
   font-size: 14px;
   line-height: 18px;
   display: block;
+  /*position: relative;
+  top: 17px;*/
 }
 .panelAirport .airportCity {
   text-transform: uppercase;
@@ -594,6 +586,7 @@ ul.covis li.selected {
   cursor: pointer;
 }
 #list_airport_panel {
+  z-index: 100001;
   position: absolute;
   background-color: rgba(14, 14, 14, 0.9);
   top: 0;
