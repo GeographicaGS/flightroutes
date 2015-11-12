@@ -234,12 +234,13 @@ input[type="radio"]:checked + label {
   position: fixed;
   top: 0;
   bottom: 0;
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   background: #242427;
   color: #ffffff;
   z-index: 9999;
   text-align: center;
+  overflow-y: auto;
 }
 #quiz.show {
   display: block;
