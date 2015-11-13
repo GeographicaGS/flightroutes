@@ -673,7 +673,7 @@ ul.covis li.selected {
 }
 #about_panel .content img {
   /*padding: 45px 0px 14px 0;*/
-  padding: 20px 0px 0px 0;
+  padding: 40px 0px 0px 0;
 }
 #about_panel .content .github:after {
   content: url(images/FR_icon-dir.svg);
