@@ -724,7 +724,7 @@ ul.covis li.selected {
   bottom: 0;
   right: 0;
   left: 0;
-  overflow: auto;
+  overflow: hidden;
   opacity: 0;
   display: block;
   visibility: hidden;
@@ -791,11 +791,24 @@ ul.covis li.selected {
   border-spacing: 0;
   border-collapse: collapse;
   margin-top: 62px;
+
+  overflow: auto;
+  height: 100vh;
+  display: block;
+  padding-top: 51px;
+
 }
 #list_airport_panel table thead {
   font-size: 16px;
   line-height: 48px;
   color: #848484;
+
+  display: table;
+  width: 100%;
+  position: absolute;
+  top: 129px;
+  background-color: rgba(14, 14, 14, 1);
+  z-index: 1;
 }
 
 #list_airport_panel table thead tr td:first-of-type{
@@ -805,12 +818,25 @@ ul.covis li.selected {
 #list_airport_panel table tbody {
   font-size: 21px;
   line-height: 48px;
+
+  display: table;
+  width: 100%;
+  margin-bottom: 200px;
 }
 #list_airport_panel table tbody tr {
   font-size: 21px;
   line-height: 48px;
   cursor: pointer;
 }
+
+#list_airport_panel table tr td:first-of-type{
+  width: 78%;
+}
+
+#list_airport_panel table tr td:nth-of-type(2){
+  width: 3.47%;
+}
+
 #list_airport_panel table tr.to {
   position: relative;
   color: #82b600;
