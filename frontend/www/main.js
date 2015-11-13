@@ -43,7 +43,7 @@ function start(){
       airports = data.rows;
       if(typeof(Storage) !== "undefined") {
         showQuiz = localStorage.showedQuiz=="true" ? false : true;
-        if (showQuiz || true){
+        if (showQuiz){
           runQuiz();
           //localStorage.showedQuiz = true;
         }
