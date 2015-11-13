@@ -6,7 +6,7 @@ var questions = [{
   answer : 'ATL'
 },
 {
-  title : ' Which airports have more flight connections?',
+  title : ' Which airport has more flight connections?',
   options: ['CDG','PEK','FRA', 'ATL', 'AMS'],
   answer : 'FRA'
 }];
@@ -15,16 +15,19 @@ var map,
   airports,
   arpt1 = 'ATL',
   arpt2 = 'FRA',
+  markers = [null,null],
   layers = [null,null],
   username = 'alasarr',
   showQuiz = false,
-  currentQuizQuestion = -1;
+  currentQuizQuestion = -1,
+  $tooltip,
+  tooltip_template = $('#tooltip_template').html();
 
 function start(){
 
   map = new L.Map('map', {
     center: [40,0],
-    zoom: 2,
+    zoom: 3,
     zoomControl : false
   });
 
@@ -34,10 +37,15 @@ function start(){
       attribution: 'Geographica'
   }).addTo(map);
 
+  $('#map').append('<div id="tooltipmap">ey!!!!!!</div>');
+
+  $tooltip = $('#tooltipmap');
+
   $('input[name="viz"]').click(refresh);
 
   var sql = new cartodb.SQL({ user: username });
-  sql.execute('SELECT iata as code,apt_name as name,metro,iso_a3 as country_code,nroutes, ' +
+  sql.execute('SELECT st_x(the_geom) as lng, st_y(the_geom) as lat,iata as code,apt_name as name,metro,iso_a3 as country_code,'
+          +'nroutes,nroutes_af,nroutes_as,nroutes_eu,nroutes_na,nroutes_oc,nroutes_sa,' +
           'round(passengers_2014/1000000::numeric,2) as passengers FROM airports_passengersdata order by iata')
     .done(function(data) {
       airports = data.rows;
@@ -65,13 +73,72 @@ function drawLayer(opts){
     viztype = opts.viztype,
     el = opts.el;
 
-
   if (layers[el]){
 
       map.removeLayer(layers[el]);
       //layers[el].clear();
       layers[el] = null;
   }
+
+   if (markers[el]){
+
+      map.removeLayer(markers[el]);
+      //layers[el].clear();
+      markers[el] = null;
+  }
+
+
+  var completeArpt = getArpt(arpt);
+  var icon = L.icon({
+      iconUrl: el== 0 ? 'images/FR_icon_airp1.svg' :'images/FR_icon_airp2.svg',
+      iconSize: [16, 32],
+      iconAnchor: [8, 32],
+      zIndexOffset : 1
+  });
+
+  markers[el] = L.marker([completeArpt.lat, completeArpt.lng],
+    {icon: icon}).addTo(map);
+
+  var htmlmarkerover = Mustache.render(tooltip_template,{
+    title: completeArpt.code + ' Routes',
+    subtitle: completeArpt.nroutes,
+    fields : [
+      {
+        'title' : 'To Africa',
+        'value' : completeArpt.nroutes_af
+      },
+      {
+        'title' : 'To Asia',
+        'value' : completeArpt.nroutes_as
+      },
+      {
+        'title' : 'To Europe',
+        'value' : completeArpt.nroutes_eu
+      },
+      {
+        'title' : 'To North America',
+        'value' : completeArpt.nroutes_na
+      },
+      {
+        'title' : 'To Oceania',
+        'value' : completeArpt.nroutes_oc
+      },
+      {
+        'title' : 'To South America',
+        'value' : completeArpt.nroutes_sa
+      }
+    ]
+  });
+
+  markers[el].on('mouseover', function (e) {
+    $tooltip.html(htmlmarkerover)
+    .fadeIn(300).css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
+
+  });
+  
+  markers[el].on('mouseout', function (e) {
+    $tooltip.fadeOut(300);
+  });
 
   var opts;
   var color = el == 0 ? '#ffb400' : '#82b600';
@@ -101,11 +168,14 @@ function drawLayer(opts){
     };
   }
 
-   cartodb.createLayer(map,opts)
-      .addTo(map)
-      .on('done', function(layer) {
-        layers[el] = layer;
-      });
+  cartodb.createLayer(map,opts)
+    .addTo(map)
+    .on('done', function(layer) {
+      layers[el] = layer;
+      layer.setZIndex(3)
+    });
+
+ 
 
 }
 function refresh(){
@@ -131,42 +201,6 @@ function refresh(){
                     " where iata='{{arpt1}}') as passengers1,"+
                 "(select passengers_2014 from airports_passengersdata "+
                     " where iata='{{arpt2}}') as passengers2"
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt1}}' AND b.continent='EU' ) as eu1,"+
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt2}}' AND b.continent='EU' ) as eu2," +
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt1}}' AND b.continent='AF' ) as af1,"+
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt2}}' AND b.continent='AF' ) as af2," +
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt1}}' AND b.continent='AS' ) as as1,"+
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt2}}' AND b.continent='AS' ) as as2," +
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt1}}' AND b.continent='OC' ) as oc1,"+
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt2}}' AND b.continent='OC' ) as oc2," +
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt1}}' AND b.continent='NA' ) as na1,"+
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt2}}' AND b.continent='NA' ) as na2," +
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt1}}' AND b.continent='SA' ) as sa1,"+
-                // "(select count(*) from alasarr.flight_routes a "+
-                //   " INNER JOIN alasarr.airports b ON a.dest=b.iata_code " +
-                //   " where a.orig='{{arpt2}}' AND b.continent='SA' ) as sa2" +
                ,
 
                 { arpt1: arpt1,arpt2: arpt2 })
@@ -192,25 +226,6 @@ function refresh(){
 
         $el1.find(".airportCity").html(a1.metro +' ('+a1.country_code+')');
         $el2.find(".airportCity").html(a2.metro +' ('+a2.country_code+')');
-
-        // $el1.find(".nroutes_eu").html(d.eu1);
-        // $el2.find(".nroutes_eu").html(d.eu2);
-
-        // $el1.find(".nroutes_af").html(d.af1);
-        // $el2.find(".nroutes_af").html(d.af2);
-
-        // $el1.find(".nroutes_as").html(d.as1);
-        // $el2.find(".nroutes_as").html(d.as2);
-
-        // $el1.find(".nroutes_oc").html(d.oc1);
-        // $el2.find(".nroutes_oc").html(d.oc2);
-
-        // $el1.find(".nroutes_na").html(d.na1);
-        // $el2.find(".nroutes_na").html(d.na2);
-
-        // $el1.find(".nroutes_sa").html(d.sa1);
-        // $el2.find(".nroutes_sa").html(d.sa2);
-
 
     })
     .error(function(errors) {
