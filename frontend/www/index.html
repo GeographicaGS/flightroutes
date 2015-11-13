@@ -162,7 +162,7 @@
       </div>
     </script>
 
-    <script type="template/mustache" id="tooltip_template">
+    <script type="template/mustache" id="tooltip_airport_template">
     <span class="title">{{title}}</span>
     <span class="subtitle">{{subtitle}}</span>
     <ul>
@@ -173,6 +173,17 @@
       </li>
     {{/fields}}
     </ul>
+    </script>
+
+    <script type="template/mustache" id="tooltip_routes_template">
+    <span class="title">From</span>
+    <span class="subtitle">{{fromcode}}</span>
+    <span class="desc">{{fromdesc}}</span>
+
+    <span class="title">To</span>
+    <span class="subtitle">{{tocode}}</span>
+    <span class="desc">{{todesc}}</span>
+    
     </script>
 
     <script type="template/mustache" id="pick_airport_template">

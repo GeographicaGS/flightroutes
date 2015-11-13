@@ -907,8 +907,16 @@ div.cartodb-timeslider .ui-slider .ui-slider-range {
   position: absolute;
   z-index: 1;
   display: none;
-  background-color: #ffb400;
+  
   padding: 10px
+}
+
+#tooltipmap.arpt1{
+  background-color: #ffb400;
+}
+
+#tooltipmap.arpt2{
+  background-color: #82b600;
 }
 
 #tooltipmap .title,#tooltipmap .subtitle,#tooltipmap ul li label,#tooltipmap ul li span{

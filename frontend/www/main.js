@@ -20,8 +20,7 @@ var map,
   username = 'alasarr',
   showQuiz = false,
   currentQuizQuestion = -1,
-  $tooltip,
-  tooltip_template = $('#tooltip_template').html();
+  $tooltip;
 
 function start(){
 
@@ -68,6 +67,7 @@ function start(){
     });
 }
 
+
 function drawLayer(opts){
   var arpt = opts.arpt,
     viztype = opts.viztype,
@@ -99,7 +99,7 @@ function drawLayer(opts){
   markers[el] = L.marker([completeArpt.lat, completeArpt.lng],
     {icon: icon}).addTo(map);
 
-  var htmlmarkerover = Mustache.render(tooltip_template,{
+  var htmlmarkerover = Mustache.render($('#tooltip_airport_template').html(),{
     title: completeArpt.code + ' Routes',
     subtitle: completeArpt.nroutes,
     fields : [
@@ -132,7 +132,9 @@ function drawLayer(opts){
 
   markers[el].on('mouseover', function (e) {
     $tooltip.html(htmlmarkerover)
-    .fadeIn(300).css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
+      .removeClass('arpt1').removeClass('arpt2')
+      .addClass(el==0 ? 'arpt1' : 'arpt2')
+      .fadeIn(300).css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
 
   });
   
@@ -156,24 +158,64 @@ function drawLayer(opts){
         cartocss: cartocss
       }
     };
+
+    cartodb.createLayer(map,opts)
+      .addTo(map)
+      .on('done', function(layer) {
+        layers[el] = layer;
+      });
   }
   else if (viztype == 'geodesiclines'){
     opts = {
       type: 'cartodb',
       user_name: username,
        sublayers: [{
-          sql: "SELECT * FROM flight_routes WHERE orig='" + arpt + "'", // Required
-          cartocss:  Mustache.render($('#geodesiclines_cartocss').html(),{color: color})
+          sql: "SELECT * FROM flight_routes a  WHERE orig='" + arpt + "'", // Required
+          cartocss:  Mustache.render($('#geodesiclines_cartocss').html(),{color: color}),
+          //interactivity: 'cartodb_id,orig,dest'
       }]
     };
+
+   // var tooltiptemplate = $('#tooltip_routes_template').html();
+
+    cartodb.createLayer(map,opts)
+      .addTo(map)
+      .on('done', function(layer) {
+        layers[el] = layer;
+        // layer.getSubLayer(0).setInteraction(true);
+        
+        // var hovers = [];
+
+        // layer.on('featureOver', function(e, latlng, pos, data, subLayerIndex) {
+        //   hovers[layer] = 1;
+        //   if(_.any(hovers)) {
+        //     $('#map').css('cursor', 'pointer');
+        //   }
+        //   var o = getArpt(data.orig);
+        //   var d = getArpt(data.dest);
+        //   var html = Mustache.render(tooltiptemplate,{
+        //     fromcode: o.code,
+        //     fromdesc: o.metro + ' (' + o.country_code +')',
+        //     tocode: data.dest,
+        //     todesc: d ? d.metro + ' (' + d.country_code +')' : ''
+        //   });
+        //   $tooltip.html(html)
+        //     .removeClass('arpt1').removeClass('arpt2')
+        //     .addClass(el==0 ? 'arpt1' : 'arpt2')
+        //     .show().css('left',pos.x+'px').css('top',pos.y+'px');
+        // });
+        // layer.on('featureOut', function(e, latlng, pos, data, subLayerIndex) {
+        //   hovers[layer] = 0;
+        //   if(!_.any(hovers)) {
+        //     $('#map').css('cursor', 'auto');
+        //   }
+        //   $tooltip.fadeOut(300);
+        // });
+      });
+
   }
 
-  cartodb.createLayer(map,opts)
-    .addTo(map)
-    .on('done', function(layer) {
-      layers[el] = layer;
-      layer.setZIndex(3)
-    });
+
 
  
 
