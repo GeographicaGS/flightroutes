@@ -3,12 +3,15 @@
 var questions = [{
   title : 'Which is the busiest airport by passengers traffic?',
   options: ['JFK','PEK','HND','ATL','LHR'],
-  answer : 'ATL'
+  answer : 'ATL',
+  ico: './images/FR_icon-pasajero.svg'
 },
 {
   title : ' Which airport has more flight connections?',
   options: ['CDG','PEK','FRA', 'ATL', 'AMS'],
-  answer : 'FRA'
+  answer : 'FRA',
+  ico: './images/FR_icon-airplane.svg'
+
 }];
 
 var map,
@@ -312,6 +315,9 @@ function nextQuiz(e){
   opts.total = questions.length;
 
   $q.html(Mustache.render(template,opts));
+
+  if(typeof(Storage) !== "undefined" && localStorage.showedQuiz=="true")
+    $q.find('input[name="dontshowquiz"]').attr('checked',true);
 
   $q.find('[data-action="next"]').click(nextQuiz);
   $q.find('li').click(checkQuizQuestion);
