@@ -23,7 +23,7 @@ var map,
 function start(){
 
   map = new L.Map('map', {
-    center: [0,0],
+    center: [40,0],
     zoom: 2,
     zoomControl : false
   });
@@ -43,7 +43,7 @@ function start(){
       airports = data.rows;
       if(typeof(Storage) !== "undefined") {
         showQuiz = localStorage.showedQuiz=="true" ? false : true;
-        if (showQuiz){
+        if (showQuiz || true){
           runQuiz();
           //localStorage.showedQuiz = true;
         }
@@ -259,15 +259,15 @@ function nextQuiz(){
 
   var lis = $q.find('li'),i = 0;
 
-  // var interval = setInterval(function(){
-  //   var $el = $(lis[i]);
-  //   $el.removeClass('hide').addClass('show');
-  //   i++;
-  //
-  //   if (i>=lis.length)
-  //     clearInterval(interval);
-  //
-  // },500);
+  var interval = setInterval(function(){
+    var $el = $(lis[i]);
+    $el.removeClass('hide').addClass('show');
+    i++;
+  
+    if (i>=lis.length)
+      clearInterval(interval);
+  
+  },800);
 
 }
 
@@ -276,16 +276,12 @@ function checkQuizQuestion(){
     parent = $(this).closest('li');
 
   if (answer == questions[currentQuizQuestion].answer){
-    parent.addClass('right');
-    setTimeout(function(){
-      nextQuiz();
-    },1000);
+    $(this).closest('ul').find('li').addClass('wrong');
+    parent.removeClass('wrong').addClass('right');
   }
   else{
     parent.addClass('wrong');
-    setTimeout(function(){
-      parent.removeClass('wrong');
-    },1500);
+    
   }
 }
 

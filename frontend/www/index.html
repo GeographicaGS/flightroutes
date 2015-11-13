@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="Flight routes around the world - A project by Geographica">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
-    <meta name="viewport" content="width=768">
+    <meta name="viewport" content="width=1200">
     <title>Flight routes around the world</title>
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="styles.css" />
@@ -132,12 +132,17 @@
     <script type="template/mustache" id="quiz_template">
       <div class="wrapper">
         <h1><img src="./images/FR_icon-airplane.svg">A couple of questions</h1>
+
         <div class="question">
-          <a href="#" data-action='close' class="close"><img src="./images/FR_arrow_skip.svg">Skip</a>
+          <a href="#" data-action='close' class="next"><img src="./images/FR_arrow_skip.svg">Skip</a>
           <h5>{{title}}</h5>
+          <div class="dontshow">
+            <input type="checkbox" name="dontshowquiz" />
+            <span>Don&apos;t show this quiz again</span>
+          </div>
           <ul class="questions">
             {{#options}}
-              <li class="show" data-answer="{{code}}"><input type="radio" name="answer">
+              <li class="hide" data-answer="{{code}}"><input type="radio" name="answer">
                 <p class="airport">
                   <span class="code">{{code}}</span>
                   <span class="name">{{name}}</span>
@@ -151,10 +156,7 @@
             {{/options}}
           </ul>
         </div>
-        <div class="dontshow">
-          <input type="checkbox" name="dontshowquiz" />
-          <span>Don&apos;t show this quiz again</span>
-        </div>
+        
       </div>
     </script>
 
