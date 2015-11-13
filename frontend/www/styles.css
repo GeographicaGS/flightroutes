@@ -785,3 +785,35 @@ div.cartodb-timeslider .time {
 div.cartodb-timeslider .ui-slider .ui-slider-range {
   background-color: #ffb400;
 }
+
+#tooltipmap{
+  position: absolute;
+  z-index: 1;
+  display: none;
+  background-color: #ffb400;
+  padding: 10px
+}
+
+#tooltipmap .title,#tooltipmap .subtitle,#tooltipmap ul li label,#tooltipmap ul li span{
+  color: #0e0e0e;
+  font-size: 13px;
+}
+
+#tooltipmap .title,#tooltipmap .subtitle{
+  font-weight: bold;
+  display: block;
+}
+
+#tooltipmap ul{
+  margin: 18px 0 0 0;
+  padding: 0;
+}
+
+#tooltipmap .subtitle,#tooltipmap ul li{
+  line-height: 18px;
+}
+
+#tooltipmap .subtitle,#tooltipmap ul li span{
+  font-size: 18px;
+}
+
