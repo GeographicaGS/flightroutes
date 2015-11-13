@@ -203,10 +203,11 @@ a {
   line-height: 48px;
   color: #fff;
   position: absolute;
-  top: 95px;
+  bottom: 0;
+  left: 125px;
   background-color: #0e0e0e;
-  width: 440px;
-  border-right: 2px solid #5d5d5f;
+  width: 336px;
+  border-left: 2px solid #5d5d5f;
 }
 .covis input {
   margin-right: 5px;
@@ -219,10 +220,17 @@ a {
 
 input[type="radio"]:checked + label {
   color: #ffb400;
+  border-bottom: 4px solid #ffb400;
+  padding-bottom: 10px;
 }
 .covis label {
   margin-right: 20px;
 }
+
+.covis label:last-of-type{
+  margin-right: 0;
+}
+
 #quiz {
   display: none;
   position: fixed;
@@ -416,7 +424,7 @@ input[type="radio"]:checked + label {
 #title_panel {
   position: absolute;
   top: 0;
-  background-color: #0e0e0e;
+  background-color: rgba(14,14,14,0.75);
   width: 100%;
 }
 #title_panel .logopanel {
@@ -428,13 +436,15 @@ input[type="radio"]:checked + label {
   font-size: 48px;
   line-height: 36px;
   color: #ffb400;
-  padding: 10px 0 18px 20px;
+  padding: 37px 0 10px 20px;
   border-top: 10px solid #ffb400;
 }
 #title_panel h1:before {
   content: url(images/FR_icon-cab.svg);
   float: left;
   margin-right: 14px;
+  position: relative;
+  bottom: 14px;
 }
 #title_panel h1 span {
   color: #fff;
@@ -460,35 +470,43 @@ ul.covis li.selected {
   width: calc(50% - 20px);
   float: left;
   padding: 0 20px;
+  /*display: flex;*/
 }
 .panelAirport .col1 {
-  float: left;
-  width: 29%;
+  flex:1;
+  min-width: 99px;
+  /*float: left;
+  width: 29%;*/
 }
 .panelAirport .col2 {
-  float: left;
-  /*width: 20.37%;*/
-  width: 35.5%;
+  flex:1;
+  /*float: left;
+  width: 35.5%;*/
   text-align: right;
 }
 .panelAirport .col3 {
-  float: left;
-  /*width: 22.63%;*/
-  width: 35.5%;
+  /*flex:1;*/
+  /*float: left;
+  width: 35.5%;*/
+  margin-left: 20px;
   text-align: right;
 }
 .panelAirport span {
   font-size: 16px;
   line-height: 48px;
   color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .panelAirport h4 {
   font-family: 'Quantico', sans-serif;
   font-size: 48px;
   line-height: 10px;
   font-weight: 700;
-  position: relative;
-  display: block;
+  font-weight: normal;
+  /*position: relative;
+  display: block;*/
   /*width: 125px;*/
 }
 .panelAirport h5 {
@@ -496,36 +514,42 @@ ul.covis li.selected {
   line-height: 10px;
   margin-top: 20px;
   margin-bottom: 10px;
+  font-family: 'Quantico', sans-serif;
+  font-weight: normal;
 }
 .panelAirport .airportName {
   color: #fff;
   font-size: 14px;
   line-height: 18px;
   display: block;
-  /*position: relative;
-  top: 17px;*/
 }
 .panelAirport .airportCity {
   text-transform: uppercase;
   color: #848484;
   font-size: 13px;
-  line-height: 18px;
-  display: block;
+  line-height: 18px;  
   padding-bottom: 20px;
+  font-weight: bold;
 }
 .panelAirport .col1 h4 {
   cursor: pointer;
+  min-width: 160px;
+  font-weight: bold;
 }
 .panelAirport .col1 h4:after {
   content: url(images/FR_icon-picker1.svg);
-  position: absolute;
+  position: relative;
+  bottom: 10px;
+  left: 5px;
+  /*position: absolute;
   top: -10px;
-  right: -5px;
+  right: -5px;*/
 }
 #panelarpt1 {
   border-left: 2px solid #5d5d5f;
   border-right: 2px solid #5d5d5f;
   box-sizing: border-box;
+  padding-bottom: 15px;
 }
 #panelarpt1 h4 {
   color: #ffb400;
@@ -548,11 +572,12 @@ ul.covis li.selected {
 #about_panel {
   position: absolute;
   bottom: 0;
-  max-width: 430px;
+  max-width: 464px;
   font-size: 16px;
   line-height: 20px;
   background-color: #0e0e0e;
   visibility: hidden;
+  z-index: 1001;
 }
 
 #about_panel:hover{
@@ -603,7 +628,7 @@ ul.covis li.selected {
   color: #ffb400;
   margin-top: 46px;
   padding-bottom: 16px;
-  padding-top: 16px;
+  padding-top: 12px;
   visibility: visible;
 
   background-color: #0e0e0e;
@@ -649,19 +674,40 @@ ul.covis li.selected {
 #list_airport_panel tr:hover .city {
   color: #111112;
 }
-#list_airport_panel h3 {
-  padding-left: 440px;
-  font-weight: lighter;
-  color: #fff;
-  float: left;
-  font-size: 36px;
-  line-height: 48px;
+
+#list_airport_panel h3{
+  padding-left: 78px;
+  font-weight: 500;
+  color:#848484;
+  font-size: 32px;
+  line-height: 36px;
+  margin-bottom: 0;
 }
+
+#list_airport_panel h4 {
+  padding-left: 78px;
+  /*color: #fff;*/
+  float: left;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 500;
+  margin: 0;
+}
+
+#list_airport_panel.from h4{
+  color:#ffb400;
+}
+
+#list_airport_panel.to h4{
+  color:#82b600;
+}
+
+
 #list_airport_panel .close {
-  float: right;
-  padding: 40px 56px 0 0;
   cursor: pointer;
-  padding-bottom: 15px;
+  position: absolute;
+  right: 56px;
+  top: 40px;
 }
 #list_airport_panel table {
   clear: both;
@@ -669,12 +715,18 @@ ul.covis li.selected {
   color: #fff;
   border-spacing: 0;
   border-collapse: collapse;
+  margin-top: 62px;
 }
 #list_airport_panel table thead {
   font-size: 16px;
   line-height: 48px;
   color: #848484;
 }
+
+#list_airport_panel table thead tr td:first-of-type{
+  color: #fff;
+}
+
 #list_airport_panel table tbody {
   font-size: 21px;
   line-height: 48px;
@@ -730,6 +782,7 @@ ul.covis li.selected {
   font-size: 13px;
   line-height: 18px;
   margin-left: 10px;
+  font-weight: bold;
 }
 .leaflet-control-container {
   position: absolute;
@@ -774,10 +827,12 @@ ul.covis li.selected {
   bottom: 32px !important;
 }
 div.cartodb-timeslider {
-  left: 0 !important;
+  bottom: 25px !important;
+  left: 127px !important;
+  /*left: 0 !important;
   right: 0 !important;
   width: 340px !important;
-  margin: 0 auto;
+  margin: 0 auto;*/
 }
 div.cartodb-timeslider .time {
   display: none;

@@ -163,12 +163,13 @@
     </script>
 
     <script type="template/mustache" id="pick_airport_template">
-      <h3>Pick an airport...</h3>
+      <h3>World's 50 busiest airports by passenger traffic, 2014</h3>
+      <h4>Pick an airport...</h4>
       <img class="close" src="images/FR_cerrar_tabla.svg" alt="close">
       <table>
         <thead>
           <tr>
-            <td></td>
+            <td><strong>Airport</strong></td>
             <td>Routes</td>
             <td>Pax./year</td>
           </tr>
@@ -191,17 +192,13 @@
 
       <div class="logopanel">
         <h1>Flight routes <span>around the world</span></h1>
-         <div class='covis'>
-          <input id="rad1" type="radio" name="viz" value="torque" checked ><label for="rad1">Animation</label>
-          <input id="rad2" type="radio" name="viz" value="geodesiclines"><label for="rad2">Route lines</label>
-          <input id="rad3" type="radio" name="viz" value="torqueblow"><label for="rad2">Boom!</label>
-        </div>
       </div>
 
       <div id="airportPanels">
 
         <div id="panelarpt1" class="panelAirport">
-          <div>
+          
+          <div style="display:flex">
             <div class="col1">
               <span><strong>Airport</strong></span>
               <h4 class='airportcode'></h4>
@@ -215,12 +212,15 @@
               <h5 class='passengers'></h5>
             </div>
           </div>
+          
           <span class="airportName">John F. Kennedy International Airport</span>
           <span class="airportCity">New York CITY (NY)</span>
+          
         </div>
 
         <div id="panelarpt2" class="panelAirport">
-          <div>
+          
+          <div style="display:flex">
             <div class="col1">
               <span><strong>Airport</strong></span>
               <h4 class='airportcode'></h4>
@@ -234,11 +234,18 @@
               <h5 class='passengers'></h5>
             </div>
           </div>
+          
           <span class="airportName">John F. Kennedy International Airport</span>
           <span class="airportCity">New York CITY (NY)</span>
         </div>
 
       </div>
+    </div>
+
+    <div class='covis'>
+      <input id="rad1" type="radio" name="viz" value="torque" checked ><label for="rad1">Animation</label>
+      <input id="rad2" type="radio" name="viz" value="geodesiclines"><label for="rad2">Route lines</label>
+      <input id="rad3" type="radio" name="viz" value="torqueblow"><label for="rad2">Boom!</label>
     </div>
 
     <div id="about_panel">
