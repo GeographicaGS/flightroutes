@@ -133,7 +133,14 @@
 
     <script type="template/mustache" id="quiz_template">
       <div class="wrapper">
-        <h1><img src="./images/FR_icon-airplane.svg">A couple of questions</h1>
+        <h1>
+          <span class='co_ico'>
+            <img src="{{ico}}" >
+          </span>
+
+          A couple of questions
+
+        </h1>
 
         <div class="question">
           <a href="#" data-action='next' class="next"><img src="./images/FR_icon-direccion2.svg">{{nexttext}}</a>
