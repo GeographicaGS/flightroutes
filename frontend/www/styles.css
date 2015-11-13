@@ -128,8 +128,8 @@ ul{
 }
 .credits {
   position: absolute;
-  bottom: 32px;
-  right: 0px;
+  bottom: 10px;
+  right: 20px;
 }
 .credits .geographica {
   /*position: absolute;
@@ -275,13 +275,22 @@ input[type="radio"]:checked + label {
   position: absolute;
   left: calc(50% + 350px);
   margin-right: -300px;
-  top: 7px;
+  /*top: 7px;*/
   color: #707070;
   font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
-
 }
+
+@media (max-width: 1300px) {
+  #quiz .question .next {
+    position: fixed;
+    top: 145px;
+    right: 100px; 
+    margin-right: 0;
+  }
+}
+
 
 #quiz .question .next img {
   display: block;
@@ -825,6 +834,11 @@ ul.covis li.selected {
 #list_airport_panel table tr.from td:first-of-type:before {
   content: url("images/FR_icon_airp1.svg");
 }
+
+#list_airport_panel table thead tr td {
+  border-bottom: 2px solid #363637;
+}
+
 #list_airport_panel table tr td {
   border-bottom: 1px solid #363637;
 }
@@ -888,9 +902,9 @@ ul.covis li.selected {
   color: transparent;
 }
 .cartodb-logo {
-  right: 232px !important;
+  right: 252px !important;
   left: initial !important;
-  bottom: 32px !important;
+  bottom: 10px !important;
 }
 div.cartodb-timeslider {
   bottom: 25px !important;
