@@ -230,7 +230,9 @@ function runQuiz(){
   nextQuiz();
 }
 
-function nextQuiz(){
+function nextQuiz(e){
+
+  if (e) e.preventDefault();
 
   currentQuizQuestion++;
 
@@ -247,13 +249,14 @@ function nextQuiz(){
   for(var i=0; i<opts.options.length; i++){
     opts.options[i] = getArpt(opts.options[i]);
   }
-
+  opts.nexttext = currentQuizQuestion==0 ? 'Next' : 'Explore';
+  
   opts.questionnumber = currentQuizQuestion+1;
   opts.total = questions.length;
 
   $q.html(Mustache.render(template,opts));
 
-  $q.find('[data-action="close"]').click(closeQuiz);
+  $q.find('[data-action="next"]').click(nextQuiz);
   $q.find('li').click(checkQuizQuestion);
   $q.find('input[name="dontshowquiz"]').click(dontShowQuizAgain)
 
@@ -278,6 +281,8 @@ function checkQuizQuestion(){
   if (answer == questions[currentQuizQuestion].answer){
     $(this).closest('ul').find('li').addClass('wrong');
     parent.removeClass('wrong').addClass('right');
+    $(this).closest('#quiz').find('.next').addClass('right')
+      .find('img').attr('src','./images/FR_icon-direccion1.svg');
   }
   else{
     parent.addClass('wrong');
@@ -299,7 +304,7 @@ function quizCompleted(){
     $q = $('#quiz');
 
   $q.html(Mustache.render(template));
-  $q.find('[data-action="close"]').click(closeQuiz);
+  $q.find('[data-action="close"]').click(nextQuiz);
 }
 
 function dontShowQuizAgain(){
