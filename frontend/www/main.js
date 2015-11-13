@@ -309,11 +309,15 @@ function nextQuiz(e){
 
   for(var i=0; i<opts.options.length; i++){
     opts.options[i] = getArpt(opts.options[i]);
+    opts.options[i].datavalue = currentQuizQuestion==0 ? opts.options[i].passengers +'M' : opts.options[i].nroutes;
   }
   opts.nexttext = currentQuizQuestion==0 ? 'Next' : 'Explore';
+  opts.datalabel = currentQuizQuestion==0 ? 'Pax./year': 'Routes';
+
   
   opts.questionnumber = currentQuizQuestion+1;
   opts.total = questions.length;
+
 
   $q.html(Mustache.render(template,opts));
 
