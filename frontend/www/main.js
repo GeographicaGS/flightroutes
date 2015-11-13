@@ -30,7 +30,8 @@ function start(){
   map = new L.Map('map', {
     center: [40,0],
     zoom: 3,
-    zoomControl : false
+    zoomControl : false,
+    minZoom : 2
   });
 
   new L.Control.Zoom({ position: 'topright' }).addTo(map);

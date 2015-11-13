@@ -6,6 +6,7 @@ html,
   margin: 0;
   /*font-family: Helvetica,arial,sans-serif;*/
   font-family: 'Source Sans Pro', sans-serif;
+  background-color: #242426;
 }
 a {
   text-decoration: none;
