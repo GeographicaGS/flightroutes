@@ -259,13 +259,21 @@ function refresh(){
         // $el1.find(".airportcode").html(arpt1);
         changeArpt(arpt1,$el1.find(".airportcode"));
 
-        $el2.find(".airportcode").html(arpt2);
+        // $el2.find(".airportcode").html(arpt2);
+        changeArpt(arpt2,$el2.find(".airportcode"));
 
-        $el1.find(".nroutes_total").html(d.total1);
-        $el2.find(".nroutes_total").html(d.total2);
+        // $el1.find(".nroutes_total").html(d.total1);
+        changeTotalRoutes($el1.find(".nroutes_total"),d.total1);
 
-        $el1.find(".passengers").html(parseFloat(d.passengers1/1000000).toFixed(2) + 'M');
-        $el2.find(".passengers").html(parseFloat(d.passengers2/1000000).toFixed(2) + 'M');
+
+        // $el2.find(".nroutes_total").html(d.total2);
+        changeTotalRoutes($el2.find(".nroutes_total"),d.total2);
+
+        // $el1.find(".passengers").html(parseFloat(d.passengers1/1000000).toFixed(2) + 'M');
+        changePassengers($el1.find(".passengers"),parseFloat(d.passengers1/1000000).toFixed(2));
+
+        // $el2.find(".passengers").html(parseFloat(d.passengers2/1000000).toFixed(2) + 'M');
+        changePassengers($el2.find(".passengers"),parseFloat(d.passengers2/1000000).toFixed(2));
 
         var a1 = getArpt(arpt1), a2 = getArpt(arpt2);
 
@@ -280,6 +288,64 @@ function refresh(){
       // errors contains a list of errors
       console.log("errors:" + errors);
     })
+}
+
+function changePassengers(elem, pass){
+  var current = parseFloat(elem.text().replace('M',''));
+  if(!current || current == ""){
+    elem.html(pass + 'M');
+
+  }else{
+    var time = 0;
+    while(current != pass){
+      time += 50;
+      if(Math.abs(pass - current) > 1){
+        if(pass > current){
+          current ++;
+        }else{
+          current --;
+        }
+        current =  current.toFixed(2);
+        changePassengersWorker(elem,current, time);
+
+      }else{
+        current = pass;
+        changePassengersWorker(elem,current, time);
+      }
+
+    }
+  }
+}
+
+function changePassengersWorker(elem, current, time){
+  setTimeout(function(){ 
+    elem.html(current);
+  }, time);
+}
+
+function changeTotalRoutes(elem, total){
+  var current = elem.text();
+  if(!current || current == ""){
+    elem.html(total);
+
+  }else{
+    var time = 0;
+    while(current != total){
+      if(total > current){
+        current ++;
+      }else{
+        current --;
+      }
+      time += 30;
+      changeTotalRoutesWorker(elem,current, time);
+    }
+  }
+}
+
+function changeTotalRoutesWorker(elem, current, time){
+  setTimeout(function(){
+    elem.html(current);
+  }, time);
 }
 
 var letters = ['A','B','C','D','E','F','G','H','I','J','K','L', 'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -299,16 +365,15 @@ function changeArpt(arpt,elem){
   }else{
     for(var i=0; i<list.length; i++){  
       // changeLetter($(list[i]),aux[i]);
-      changeLetterW($(list[i]),aux[i]);
-      
-      function changeLetterW (elem,newLetter){
-        setTimeout(function(){ 
-          changeLetter(elem,newLetter)
-        }, 100);
-      }
-
+      changeLetterWorker($(list[i]),aux[i]);    
     }
   }
+}
+
+function changeLetterWorker (elem,newLetter){
+  setTimeout(function(){
+    changeLetter(elem,newLetter)
+  }, 0);
 }
 
 function getPosition(letter){
@@ -324,15 +389,10 @@ function changeLetter(elem,newLetter){
   var pos =  getPosition(letter);
   var time = 0;
   for(pos; pos<letters.length; pos++){
-    time += 100;
+    time += 50;
     
     // elem.text(letters[pos]);
-    replaceW(letters[pos]);
-    function replaceW(l){
-      setTimeout(function(){ 
-        elem.text(l);
-      }, time);
-    }
+    replaceWorker(elem, letters[pos], time);
 
     if(letters[pos] == newLetter){
       return
@@ -341,6 +401,13 @@ function changeLetter(elem,newLetter){
       pos = -1;
     }
   }
+}
+
+
+function replaceWorker(elem, l, time){
+  setTimeout(function(){ 
+    elem.text(l);
+  }, time);
 }
 
 

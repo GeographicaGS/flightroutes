@@ -601,7 +601,8 @@ ul.covis li.selected {
 }
 .panelAirport ul li{
   float: left;
-  /*width: 32px;*/
+  /*width: 37px;*/
+  /*min-width: 34px;*/
 }
 
 #panelarpt1 {
