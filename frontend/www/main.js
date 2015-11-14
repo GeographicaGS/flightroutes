@@ -256,7 +256,9 @@ function refresh(){
         $el1 = $dp.find("#panelarpt1"),
         $el2 = $dp.find("#panelarpt2");
 
-        $el1.find(".airportcode").html(arpt1);
+        // $el1.find(".airportcode").html(arpt1);
+        changeArpt(arpt1,$el1.find(".airportcode"));
+
         $el2.find(".airportcode").html(arpt2);
 
         $el1.find(".nroutes_total").html(d.total1);
@@ -278,6 +280,67 @@ function refresh(){
       // errors contains a list of errors
       console.log("errors:" + errors);
     })
+}
+
+var letters = ['A','B','C','D','E','F','G','H','I','J','K','L', 'M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+
+function changeArpt(arpt,elem){
+  var aux = arpt.split('');
+  var list = elem.find('li');
+
+  if(list.length == 0 || aux.length != list.length){
+    var html = '<ul>';
+    for(var i=0; i<aux.length; i++){
+      html += '<li>' + aux[i] + '</li>';
+    }
+    html += '</ul>';
+    elem.html(html);
+
+  }else{
+    for(var i=0; i<list.length; i++){  
+      // changeLetter($(list[i]),aux[i]);
+      changeLetterW($(list[i]),aux[i]);
+      
+      function changeLetterW (elem,newLetter){
+        setTimeout(function(){ 
+          changeLetter(elem,newLetter)
+        }, 100);
+      }
+
+    }
+  }
+}
+
+function getPosition(letter){
+  for(var i=0; i<letters.length; i++){
+    if(letters[i] ==  letter){
+      return i;
+    }
+  }
+}
+
+function changeLetter(elem,newLetter){
+  var letter = elem.text().toUpperCase();
+  var pos =  getPosition(letter);
+  var time = 0;
+  for(pos; pos<letters.length; pos++){
+    time += 100;
+    
+    // elem.text(letters[pos]);
+    replaceW(letters[pos]);
+    function replaceW(l){
+      setTimeout(function(){ 
+        elem.text(l);
+      }, time);
+    }
+
+    if(letters[pos] == newLetter){
+      return
+    }
+    if(pos == letters.length - 1){
+      pos = -1;
+    }
+  }
 }
 
 
