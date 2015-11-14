@@ -319,7 +319,7 @@ function changePassengers(elem, pass){
 
 function changePassengersWorker(elem, current, time){
   setTimeout(function(){ 
-    elem.html(current);
+    elem.html(current + 'M');
   }, time);
 }
 
