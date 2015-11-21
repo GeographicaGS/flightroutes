@@ -134,16 +134,22 @@ function drawLayer(opts){
     ]
   });
 
+  var moveoutrequest = false;
   markers[el].on('mouseover', function (e) {
     $tooltip.html(htmlmarkerover)
       .removeClass('arpt1').removeClass('arpt2')
       .addClass(el==0 ? 'arpt1' : 'arpt2')
-      .fadeIn(300).css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
-
+      .show().css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
+    moveoutrequest = false;
   });
   
   markers[el].on('mouseout', function (e) {
-    $tooltip.fadeOut(300);
+    moveoutrequest = true;
+    setTimeout(function(){
+      if (moveoutrequest)
+        $tooltip.hide();  
+    },300);
+    
   });
 
   var opts;
@@ -167,6 +173,23 @@ function drawLayer(opts){
       .addTo(map)
       .on('done', function(layer) {
         layers[el] = layer;
+        if (el==0){
+          layer.on('pause', function() {
+            if (layers[1]){
+              layers[1].pause();
+            }
+          });
+          layer.on('stop', function() {
+            if (layers[1]){
+              layers[1].stop();
+            }
+          }); 
+          layer.on('play', function() {
+            if (layers[1]){
+              layers[1].play();
+            }
+          });  
+        }
       });
   }
   else if (viztype == 'geodesiclines'){
@@ -309,11 +332,15 @@ function nextQuiz(e){
 
   for(var i=0; i<opts.options.length; i++){
     opts.options[i] = getArpt(opts.options[i]);
+    opts.options[i].datavalue = currentQuizQuestion==0 ? opts.options[i].passengers +'M' : opts.options[i].nroutes;
   }
   opts.nexttext = currentQuizQuestion==0 ? 'Next' : 'Explore';
+  opts.datalabel = currentQuizQuestion==0 ? 'Pax./year': 'Routes';
+
   
   opts.questionnumber = currentQuizQuestion+1;
   opts.total = questions.length;
+
 
   $q.html(Mustache.render(template,opts));
 
