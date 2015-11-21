@@ -3,7 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="description" content="Flight routes around the world - A project by Geographica">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+
+    <!-- <meta name="viewport" content="width=1200"> -->
+
     <title>Flight routes around the world</title>
     <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
     <link rel="stylesheet" href="styles.css" />
@@ -40,6 +43,10 @@
     <meta name="twitter:creator" content="@geographica_gs">
     <meta name="twitter:domain" content="Geographica">
 
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
+
+    <link href='https://fonts.googleapis.com/css?family=Quantico:400,700' rel='stylesheet' type='text/css'>
+
 
   </head>
 
@@ -62,31 +69,31 @@
         -torque-data-aggregation:linear;
       }
       #flight_routes_points{
-        comp-op: lighter;
-        marker-fill-opacity: 0.9;
+        // comp-op: lighter;
+        marker-fill-opacity: 1.0;
         marker-line-color: #FFF;
         marker-line-width: 0;
         marker-line-opacity: 1;
         marker-type: ellipse;
-        marker-width: 6;
+        marker-width: 3;
         marker-fill: {{color}};
       }
       #flight_routes_points[frame-offset=1] {
-       marker-width:8;
-       marker-fill-opacity:0.45;
+       marker-width:5;
+       marker-fill-opacity:0.4;
       }
       #flight_routes_points[frame-offset=2] {
-       marker-width:10;
+       marker-width:6;
        marker-fill-opacity:0.225;
       }
       #flight_routes_points[frame-offset=3] {
-       marker-width:12;
+       marker-width:7;
        marker-fill-opacity:0.15;
       }
-      #flight_routes_points[frame-offset=4] {
-       marker-width:14;
-       marker-fill-opacity:0.1125;
-      }
+      // #flight_routes_points[frame-offset=4] {
+      //  marker-width:11;
+      //  marker-fill-opacity:0.1125;
+      // }
     </script>
 
     <script type="template/cartocss" id="torque_boom_cartocss">
@@ -100,91 +107,222 @@
       -torque-data-aggregation:linear;
       }
       #flight_routes_points{
-        comp-op: lighter;
+        //comp-op: lighter;
         marker-fill-opacity: 0.9;
         marker-line-color: #FFF;
         marker-line-width: 0;
         marker-line-opacity: 1;
         marker-type: ellipse;
-        marker-width: 5;
+        marker-width: 3;
         marker-fill: {{color}};
       }
       #flight_routes_points[frame-offset=1] {
-       marker-width:6;
+       marker-width:4;
        marker-fill-opacity:0.45;
       }
       #flight_routes_points[frame-offset=2] {
-       marker-width:7;
+       marker-width:5;
        marker-fill-opacity:0.225;
+      }
+      #flight_routes_points[frame-offset=2] {
+       marker-width:6;
+       marker-fill-opacity:0.125;
       }
 
     </script>
 
+    <script type="template/mustache" id="quiz_template">
+      <div class="wrapper">
+        <h1>
+          <span class='co_ico'>
+            <img src="{{ico}}" >
+          </span>
+
+          A couple of questions
+
+        </h1>
+
+        <div class="question">
+          <a href="#" data-action='next' class="next"><img src="./images/FR_icon-direccion2.svg">{{nexttext}}</a>
+          <h5>{{title}}</h5>
+          <div class="dontshow">
+            <input type="checkbox" name="dontshowquiz" />
+            <span>Don&apos;t show this quiz again</span>
+          </div>
+          <ul class="questions">
+            {{#options}}
+              <li class="hide" data-answer="{{code}}"><input type="radio" name="answer">
+                <p class="airport">
+                  <span class="code">{{code}}</span>
+                  <span class="name">{{name}}</span>
+                  <span class="metro">{{metro}} ({{country_code}})</span>
+                </p>
+                <p class="passengers">
+                  <span class="label">Pax./year</span>
+                  <span class="value">{{passengers}}</span>
+                </p>
+              </li>
+            {{/options}}
+          </ul>
+        </div>
+        
+      </div>
+    </script>
+
+    <script type="template/mustache" id="tooltip_airport_template">
+    <span class="title">{{title}}</span>
+    <span class="subtitle">{{subtitle}}</span>
+    <ul>
+    {{#fields}}
+      <li>
+        <label>{{title}}</label>
+        <span>{{value}}</span>
+      </li>
+    {{/fields}}
+    </ul>
+    </script>
+
+    <script type="template/mustache" id="tooltip_routes_template">
+    <span class="title">From</span>
+    <span class="subtitle">{{fromcode}}</span>
+    <span class="desc">{{fromdesc}}</span>
+
+    <span class="title">To</span>
+    <span class="subtitle">{{tocode}}</span>
+    <span class="desc">{{todesc}}</span>
+    
+    </script>
+
+    <script type="template/mustache" id="pick_airport_template">
+      <h3>World's 50 busiest airports by passenger traffic, 2014</h3>
+      <h4>Pick an airport...</h4>
+      <img class="close" src="images/FR_cerrar_tabla.svg" alt="close">
+      <table>
+        <thead>
+          <tr>
+            <td><strong>Airport</strong></td>
+            <td>Routes</td>
+            <td>Pax./year</td>
+          </tr>
+        </thead>
+        <tbody>
+          {{#airports}}
+          <tr data-code="{{code}}" >
+            <td><span class="iata">{{code}}</span> {{name}}<span class="city">{{metro}} ({{country_code}})</span></td>
+            <td>{{nroutes}}</td>
+            <td>{{passengers}}M</td>
+          </tr>
+          {{/airports}}
+        </tbody>
+      </table>
+    </script>
 
     <div id='map'></div>
-    <div id='panel'>
-      <h1>Flight routes around the world</h1>
-      <h2><a href="http://www.geographica.gs" target="_blank">A project by Geographica</a></h2>
-      <h4>Pick two airports:</h4>
-      <select id="airport_1" class='ctrl_airport'></select>
-      <select id="airport_2" class='ctrl_airport'></select>
 
-      <h4>Visualizations:</h4>
-      <div class='covis'>
-        <input type="radio" name="viz" value="torque" checked >Animation<br/>
-        <input type="radio" name="viz" value="geodesiclines">Route lines<br/>
-        <input type="radio" name="viz" value="torqueblow">Boom!
+    <div id="title_panel">
 
+      <div class="logopanel">
+        <h1>Flight routes <span>around the world</span></h1>
       </div>
 
-      <div class='coinfo'>
-      <p>This web site shows <strong>flight routes</strong> from world's 50 busiest airports by passenger traffic, according to Airports Council International data from year 2014.<p>
-      <p>You can see how an airport is connected with the rest of the world.<p>
-      <h3>Data sources</h3>
-      <ul>
-        <li><a href='http://www.aci.aero' target='_blank'>Airports Council International 2014 data</a></li>
-        <li>Airports data are taken from <a href='http://ourairports.com/data' target='_blank' >http://ourairports.com</a></li>
-        <li>Routes data from <a href='http://openflights.org/data.html' target='_blank'>http://openflights.org</a></li>
-      </ul>
-      
-      <p>For more info visit <a href='https://github.com/GeographicaGS/flightroutes'>Geographica at GitHub</a>.</p>
-      <p class='disclaimer'><strong>Disclaimer:</strong> This data is not suitable for navigation.<p>
+      <div id="airportPanels">
+
+        <div id="panelarpt1" class="panelAirport">
+          
+          <div style="display:flex">
+            <div class="col1">
+              <span><strong>Airport</strong></span>
+              <h4 class='airportcode'></h4>
+            </div>
+            <div class="col2">
+              <span>Routes</span>
+              <h4 class='nroutes_total'></h4>
+            </div>
+            <div class="col3">
+              <span>Pax./year</span>
+              <h5 class='passengers'></h5>
+            </div>
+          </div>
+          
+          <span class="airportName">John F. Kennedy International Airport</span>
+          <span class="airportCity">New York CITY (NY)</span>
+          
+        </div>
+
+        <div id="panelarpt2" class="panelAirport">
+          
+          <div style="display:flex">
+            <div class="col1">
+              <span><strong>Airport</strong></span>
+              <h4 class='airportcode'></h4>
+            </div>
+            <div class="col2">
+              <span>Routes</span>
+              <h4 class='nroutes_total'></h4>
+            </div>
+            <div class="col3">
+              <span>Pax./year</span>
+              <h5 class='passengers'></h5>
+            </div>
+          </div>
+          
+          <span class="airportName">John F. Kennedy International Airport</span>
+          <span class="airportCity">New York CITY (NY)</span>
+        </div>
+
       </div>
     </div>
 
-    <div id="datapanel">
-      <div class='el1 arpt'>
-        <h6>JFK</h6><br/>
-        
-        <span class='nroutes_total big'></span><label class='l1'>routes</label><br/>
-        <span class='nroutes_eu'></span><label>to Europe</label><br/>
-        <span class='nroutes_af'></span><label>to Africa</label><br/>
-        <span class='nroutes_oc'></span><label>to Oceania</label><br/>
-        <span class='nroutes_sa'></span><label>to South America</label><br/>
-        <span class='nroutes_na'></span><label>to North America</label><br/>
-        <span class='nroutes_as'></span><label>to Asia</label><br/><br/>
-        <span class='passengers big2'></span><label class='l2' title="Passengers">pax./year</label><br/>
-      </div>
-
-      <div class='el2 arpt'>
-        <h6>PEK</h6><br/>
-        
-        <span class='nroutes_total big'></span><label class='l1'>routes</label><br/>
-        <span class='nroutes_eu'></span><label>to Europe</label><br/>
-        <span class='nroutes_af'></span><label>to Africa</label><br/>
-        <span class='nroutes_oc'></span><label>to Oceania</label><br/>
-        <span class='nroutes_sa'></span><label>to South America</label><br/>
-        <span class='nroutes_na'></span><label>to North America</label><br/>
-        <span class='nroutes_as'></span><label>to Asia</label><br/><br/>
-        <span class='passengers big2'></span><label class='l2' title="Passengers">pax./year</label><br/>
-      </div>
-
+    <div class='covis'>
+      <input id="rad1" type="radio" name="viz" value="torque" checked ><label for="rad1">Animation</label>
+      <input id="rad2" type="radio" name="viz" value="geodesiclines"><label for="rad2">Route lines</label>
+      <input id="rad3" type="radio" name="viz" value="torqueblow"><label for="rad2">Boom!</label>
     </div>
+
+    <div id="about_panel">
+      <div class="content">
+        <a target="_blank" href="http://www.geographica.gs/es"><img src="images/FR_aProject_Geographica.svg" alt="Geographica"></a>
+        <p>
+          This web site shows flight routes from world's
+          50 busiest airports by passenger traffic,
+          according to Airports Council International data
+          from year 2014.
+        </p>
+        <p>
+          You can see how an airport is connected with
+          the rest of the world.
+        </p>
+        <p>
+          For more info visit <a class="github" target="_blank" href="https://github.com/GeographicaGS/flightroutes">Geographica at GitHub</a>
+        </p>
+        <div class="sources">
+          <p>
+            <strong>Data sources</strong><br>
+            Passengers data: <a target="_blank" href="https://en.wikipedia.org/wiki/List_of_the_world%27s_busiest_airports_by_passenger_traffic#2014_statistics"> Airports Council International</a><br>
+            Airports data: <a target="_blank" href="http://ourairports.com/data/">http://ourairports.com</a><br>
+            Routes data: <a target="_blank" href="http://openflights.org/data.html">http://openflights.org</a><br>
+          </p>
+          <p>
+            Disclaimer: This data is not suitable for navigation.
+          </p>
+        </div>
+      </div>
+      <span>About</span>
+    </div>
+
+    <div id="list_airport_panel" class="hide"></div>
+
     <div class="credits">
       <a href="http://www.geographica.gs/" target="blank" class="geographica">
-        <span>Engineered by Geographica</span>
+        <img width="140px" src="images/FR_aProject_Geographica.svg" alt="Geographica">
+        <!-- <span>Engineered by Geographica</span> -->
       </a>
     </div>
+
+    <div id="quiz"></div>
+
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
     <script src="main.js"></script>
