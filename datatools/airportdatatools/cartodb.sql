@@ -30,34 +30,31 @@ update airports_passengersdata set the_geom=(select the_geom from alasarr.airpor
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes_eu integer;
 UPDATE airports_passengersdata SET nroutes_eu=(select count(*) from alasarr.flight_routes a
-                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code 
-                 WHERE a.orig=iata AND b.continent='EU');
+                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code
+                 WHERE a.orig=iata AND b.continent='EU' AND b.type<>'closed');
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes_af integer;
 UPDATE airports_passengersdata SET nroutes_af=(select count(*) from alasarr.flight_routes a
-                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code 
-                 WHERE  a.orig=iata AND b.continent='AF');
+                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code
+                 WHERE  a.orig=iata AND b.continent='AF' AND b.type<>'closed');
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes_as integer;
 UPDATE airports_passengersdata SET nroutes_as=(select count(*) from alasarr.flight_routes a
-                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code 
-                 WHERE  a.orig=iata AND b.continent='AS');
+                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code
+                 WHERE  a.orig=iata AND b.continent='AS' AND b.type<>'closed');
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes_oc integer;
 UPDATE airports_passengersdata SET nroutes_oc=(select count(*) from alasarr.flight_routes a
-                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code 
-                 WHERE  a.orig=iata AND b.continent='OC');
+                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code
+                 WHERE  a.orig=iata AND b.continent='OC' AND b.type<>'closed');
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes_na integer;
 UPDATE airports_passengersdata SET nroutes_na=(select count(*) from alasarr.flight_routes a
-                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code 
-                 WHERE  a.orig=iata AND b.continent='NA');
+                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code
+                 WHERE  a.orig=iata AND b.continent='NA' AND b.type<>'closed');
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes_sa integer;
 
 UPDATE airports_passengersdata SET nroutes_sa=(select count(*) from alasarr.flight_routes a
-                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code 
-                 WHERE  a.orig=iata AND b.continent='SA');
-
-
-
+                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code
+                 WHERE  a.orig=iata AND b.continent='SA' AND b.type<>'closed');
