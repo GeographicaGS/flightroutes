@@ -134,16 +134,22 @@ function drawLayer(opts){
     ]
   });
 
+  var moveoutrequest = false;
   markers[el].on('mouseover', function (e) {
     $tooltip.html(htmlmarkerover)
       .removeClass('arpt1').removeClass('arpt2')
       .addClass(el==0 ? 'arpt1' : 'arpt2')
       .show().css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
-
+    moveoutrequest = false;
   });
   
   markers[el].on('mouseout', function (e) {
-    $tooltip.hide();
+    moveoutrequest = true;
+    setTimeout(function(){
+      if (moveoutrequest)
+        $tooltip.hide();  
+    },300);
+    
   });
 
   var opts;
