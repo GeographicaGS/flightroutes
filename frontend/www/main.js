@@ -138,12 +138,12 @@ function drawLayer(opts){
     $tooltip.html(htmlmarkerover)
       .removeClass('arpt1').removeClass('arpt2')
       .addClass(el==0 ? 'arpt1' : 'arpt2')
-      .fadeIn(300).css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
+      .show().css('left',e.originalEvent.pageX+'px').css('top',e.originalEvent.pageY+'px');
 
   });
   
   markers[el].on('mouseout', function (e) {
-    $tooltip.fadeOut(300);
+    $tooltip.hide();
   });
 
   var opts;
@@ -167,6 +167,23 @@ function drawLayer(opts){
       .addTo(map)
       .on('done', function(layer) {
         layers[el] = layer;
+        if (el==0){
+          layer.on('pause', function() {
+            if (layers[1]){
+              layers[1].pause();
+            }
+          });
+          layer.on('stop', function() {
+            if (layers[1]){
+              layers[1].stop();
+            }
+          }); 
+          layer.on('play', function() {
+            if (layers[1]){
+              layers[1].play();
+            }
+          });  
+        }
       });
   }
   else if (viztype == 'geodesiclines'){
