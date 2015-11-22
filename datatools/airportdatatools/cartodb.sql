@@ -26,7 +26,12 @@ CREATE INDEX airports_iatacode_idx ON airports(iata_code);
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes integer;
 UPDATE airports_passengersdata set nroutes=(select count(*) from flight_routes b where b.orig=iata)
 
-update airports_passengersdata set the_geom=(select the_geom from alasarr.airports a where a.iata_code=iata AND a.type<>'closed')
+update airports_passengersdata set the_geom=(select the_geom from alasarr.airports a where a.iata_code=iata AND a.type<>'closed');
+
+ALTER TABLE airports_passengersdata ADD COLUMN nroutes integer;
+UPDATE airports_passengersdata SET nroutes_eu=(select count(*) from alasarr.flight_routes a
+                 INNER JOIN alasarr.airports b ON a.dest=b.iata_code
+                 WHERE a.orig=iata  AND b.type<>'closed');
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes_eu integer;
 UPDATE airports_passengersdata SET nroutes_eu=(select count(*) from alasarr.flight_routes a
