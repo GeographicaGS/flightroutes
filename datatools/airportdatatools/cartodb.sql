@@ -29,7 +29,7 @@ UPDATE airports_passengersdata set nroutes=(select count(*) from flight_routes b
 update airports_passengersdata set the_geom=(select the_geom from alasarr.airports a where a.iata_code=iata AND a.type<>'closed');
 
 ALTER TABLE airports_passengersdata ADD COLUMN nroutes integer;
-UPDATE airports_passengersdata SET nroutes_eu=(select count(*) from alasarr.flight_routes a
+UPDATE airports_passengersdata SET nroutes=(select count(*) from alasarr.flight_routes a
                  INNER JOIN alasarr.airports b ON a.dest=b.iata_code
                  WHERE a.orig=iata  AND b.type<>'closed');
 
