@@ -201,7 +201,7 @@ a {
 }
 .covis {
   font-size: 16px;
-  line-height: 48px;
+  line-height: 44px;
   color: #fff;
   position: absolute;
   bottom: 0;
@@ -211,7 +211,7 @@ a {
   border-left: 2px solid #5d5d5f;
 }
 .covis input {
-  margin-right: 5px;
+  /*margin-right: 5px;*/
   position: relative;
   bottom: 3px;
   visibility: hidden;
@@ -226,9 +226,10 @@ input[type="radio"]:checked + label {
   /*padding-bottom: 10px;*/
 }
 .covis label {
-  margin-right: 20px;
+  /*margin-right: 20px;*/
   cursor: pointer;
   display: inline-block;
+  margin-right: 15px;
 }
 
 .covis label:last-of-type{
@@ -726,7 +727,7 @@ ul.covis li.selected {
 #about_panel span:before {
   content: url(images/FR_icon-info.svg);
   float: left;
-  margin: 2px 10px 0px 15px;
+  margin: 2px 10px 0px 30px;
   cursor: pointer;
 }
 #list_airport_panel {
