@@ -28,6 +28,3 @@ node_modules
 
 *.pyc
 .DS_Store
-s3_website.yml
-
-.DS_Store

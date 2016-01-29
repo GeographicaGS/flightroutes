@@ -1,5 +1,5 @@
-s3_id: XXXX
-s3_secret:XXXX
+s3_id: <%= ENV['S3_WEBSITE_ID'] %>
+s3_secret: <%= ENV['S3_WEBSITE_SECRET'] %>
 s3_bucket: flightroutes.geographica.gs
 cloudfront_distribution_id: E9UQZXRBQWWMX
 
@@ -24,5 +24,3 @@ cloudfront_distribution_config:
     quantity: 1
     items:
       CNAME: flightroutes.geographica.gs
-
-# cloudfront_invalidate_root: true
