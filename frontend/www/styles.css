@@ -223,11 +223,12 @@ a {
 input[type="radio"]:checked + label {
   color: #ffb400;
   border-bottom: 4px solid #ffb400;
-  padding-bottom: 10px;
+  /*padding-bottom: 10px;*/
 }
 .covis label {
   margin-right: 20px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .covis label:last-of-type{
