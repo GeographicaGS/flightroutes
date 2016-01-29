@@ -58,6 +58,14 @@
       line-opacity: 0.7;
           }
     </script>
+    <script type="template/cartocss" id="geodesiclines_opacity_cartocss">
+      #flight_routes{
+        line-color: {{color}};
+        line-width: 1.5;
+        line-opacity: 0.1;
+      }
+    </script>
+
     <script type="template/cartocss" id="torque_cartocss">
       /** torque visualization */
       Map {
@@ -277,7 +285,7 @@
       <input id="rad1" type="radio" name="viz" value="torque" checked >
       <label for="rad1">Animation</label>
       <input id="rad2" type="radio" name="viz" value="geodesiclines"><label for="rad2">Route lines</label>
-      <input id="rad3" type="radio" name="viz" value="torqueblow"><label for="rad3">Boom!</label>
+      <input id="rad3" type="radio" name="viz" value="torqueblow"><label for="rad3">Spread</label>
     </div>
 
     <div id="about_panel">
