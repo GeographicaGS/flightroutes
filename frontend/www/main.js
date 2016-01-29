@@ -20,6 +20,7 @@ var map,
   arpt2 = 'FRA',
   markers = [null,null],
   layers = [null,null],
+  layers2 = [null,null],
   username = 'alasarr',
   showQuiz = false,
   currentQuizQuestion = -1,
@@ -82,6 +83,12 @@ function drawLayer(opts){
       map.removeLayer(layers[el]);
       //layers[el].clear();
       layers[el] = null;
+  }
+
+  if (layers2[el]){
+    map.removeLayer(layers2[el]);
+    //layers[el].clear();
+    layers2[el] = null;
   }
 
    if (markers[el]){
@@ -191,6 +198,24 @@ function drawLayer(opts){
           });  
         }
       });
+
+      if (viztype == 'torque'){
+        opts = {
+          type: 'cartodb',
+          user_name: username,
+           sublayers: [{
+              sql: "SELECT * FROM flight_routes a  WHERE orig='" + arpt + "'", // Required
+              cartocss:  Mustache.render($('#geodesiclines_opacity_cartocss').html(),{color: color}),
+              //interactivity: 'cartodb_id,orig,dest'
+          }]
+        };
+        cartodb.createLayer(map,opts)
+          .addTo(map)
+          .on('done', function(layer) {
+            layers2[el] = layer;
+          });
+      }
+  
   }
   else if (viztype == 'geodesiclines'){
     opts = {
