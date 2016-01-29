@@ -214,6 +214,7 @@ a {
   margin-right: 5px;
   position: relative;
   bottom: 3px;
+  visibility: hidden;
 }
 .covis input:first-of-type {
   margin-left: 20px;
@@ -945,6 +946,8 @@ ul.covis li.selected {
 div.cartodb-timeslider {
   bottom: 25px !important;
   left: 127px !important;
+  background-color: #3a3a3c;
+  border-color: #3a3a3c;
   /*left: 0 !important;
   right: 0 !important;
   width: 340px !important;
@@ -955,6 +958,10 @@ div.cartodb-timeslider .time {
 }
 div.cartodb-timeslider .ui-slider .ui-slider-range {
   background-color: #ffb400;
+}
+
+div.cartodb-timeslider ul li{
+  border-right: 1px solid #5d5d5f;
 }
 
 #tooltipmap{
